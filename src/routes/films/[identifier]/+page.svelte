@@ -14,9 +14,9 @@
 	<title>{data.film.fields.title}</title>
 </svelte:head>
 
-<Video poster={data.film.fields.poster} srcs={data.film.fields.video} full controls grabs={data.film.fields.screenGrabs}>
+<Video srcs={data.film.fields.video} grabs={data.film.fields.screenGrabs}>
 	<h6 slot="title">
-		{data.film.fields.title}{#if data.film.fields.ralisateur}&nbsp;• {data.film.fields.ralisateur}{/if} • <Tags tags={data.film.fields.tags} path="data.films" />
+		{data.film.fields.title}{#if data.film.fields.realisateur}&nbsp;• {data.film.fields.realisateur}{/if} • <Tags tags={data.film.fields.tags} path="data.films" />
 	</h6>
 </Video>
 
@@ -37,7 +37,7 @@
 {#if data.film.fields.relatedContent}
 <List items={data.film.fields.relatedContent.map(item => ({
     ...item,
-    type: item.type || item.sys.contentType.sys.id
+    type: item.sys.contentType.sys.id
   }))} />
 {/if}
 

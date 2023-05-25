@@ -1,48 +1,47 @@
 <script lang="ts">
   import { page } from '$app/stores'
+  import type { Tag as ContentTag } from '$lib/clients/contentful'
   
 	import Tag from './Tag.svelte'
+  export let tags: string[]
 	export let path: string
-	export let all: string = undefined
 	export let currentTag: string = undefined
-  export let currentCollaborator: string = undefined
-
-  let showTags = false
-  let showCollaborators = false
+  export let currentDirector: string = undefined
 
   let contentTags = $page.data.tags.reduce((contentTags, tag) => {
     return { ...contentTags, [tag.fields.identifier]: tag.fields }
-  }, {})
-
-  function toggleTags() {
-    showTags = !showTags
-    showCollaborators = false
-  }
-
-  function toggleCollaborators() {
-    showCollaborators = !showCollaborators
-    showTags = false
-  }
+  }, {}) as { [id: string]: ContentTag['fields'] }
 </script>
+
+<nav>
+  <a href="{path}{currentDirector ? `?director=${currentDirector}` : ''}" rel=prefetch
+    class:current={currentTag === null}><h6>Tous</h6></a>
+
+  {#each tags as tag}
+	{#if tag !== 'recent' && tag.indexOf('20') !== 0 && !contentTags[tag]?.isACollaborator}
+	<a href="{path}?tag={tag}{currentDirector ? `&director=${currentDirector}` : ''}" rel=prefetch class:current={tag === currentTag}><h6><Tag id={tag} /></h6></a> 
+	{/if}
+	{/each}
+</nav>
+
 
 <style>
 	nav {
 		display: flex;
 		flex-wrap: wrap;
-		margin: calc(var(--rythm) * -2.5) 0 calc(var(--rythm) * 1) calc(var(--rythm) / -2);
+    gap: calc(var(--rythm) / 2);
+		/* margin: calc(var(--rythm) * -2.5) 0 calc(var(--rythm) * 1) calc(var(--rythm) / -2); */
 	}
 
-		nav a,
-    nav > span {
+		nav a {
       cursor: pointer;
 			opacity: 0.35;
       display: inline-block;
-			padding: calc(var(--rythm) / 2);
+			/* padding: calc(var(--rythm) / 2); */
 		}
 
       nav a:hover,
-      nav a:focus,
-      nav > span:hover {
+      nav a:focus {
         opacity: 1;
       }
 
@@ -52,16 +51,11 @@
           font-variation-settings: "wdth" 235;
         }
 
-		nav a.current,
-    nav > span.current {
+		nav a.current {
 			opacity: 1;
 		}
 
-    nav > div {
-      width: 100%;
-    }
-
-  @media (max-width: 1200px) {
+  /* @media (max-width: 1200px) {
 		nav {
 			margin-top: calc(var(--rythm) * -1.5);
 		}
@@ -71,44 +65,5 @@
 		nav {
 			margin-top: calc(var(--rythm) * -0.5);
 		}
-	}
+	} */
 </style>
-
-<nav>
-  <!-- {#if !currentCollaborator}
-	<span
-    class:current={true}
-    on:click={toggleTags}><h6>{#if currentTag}<Tag id={currentTag} />{:else}{all}{/if} {#if showTags}<span style="display:inline-block;transform:rotate(180deg)">↓</span>{:else}↓{/if}</h6></span>
-  {/if}
-
-  {#if !currentTag && tags.filter(([tag, total]) => contentTags[tag] && contentTags[tag].isACollaborator).length}
-  <span
-    class:current={true}
-    on:click={toggleCollaborators}><h6>{#if currentCollaborator}<Tag id={currentCollaborator} />{:else}{$page.data.locale === 'fr-CA' ? 'Tous les réals' : 'All Directors'}{/if} {#if showCollaborators}<span style="display:inline-block;transform:rotate(180deg)">↓</span>{:else}↓{/if}</h6></span>
-  {/if}
-
-  {#if showTags}
-  <div>
-  <a href="{path}{currentCollaborator ? `?director=${currentCollaborator}` : ''}" rel=prefetch
-    on:click={toggleTags}
-    class:current={currentTag === undefined}><h6>{all}</h6></a>
-
-	{#each $page.data.tags as tag}
-	{#if tag !== 'recent' && tag.indexOf('20') !== 0}
-	<a href="{path}?tag={tag}{currentCollaborator ? `&director=${currentCollaborator}` : ''}" rel=prefetch class:current={tag === currentTag} on:click={toggleTags}><h6><Tag id={tag} /></h6></a> 
-	{/if}
-	{/each}
-  </div>
-  {/if}
-
-  {#if showCollaborators}
-  <div>
-  <a href="{path}{currentTag ? `?tag=${currentTag}` : ''}" rel=prefetch
-    class:current={currentCollaborator === undefined} on:click={toggleCollaborators}><h6>{$page.data.locale === 'fr-CA' ? 'Tous les réals' : 'All Directors'}</h6></a>
-
-	{#each $page.data.tags as tag}
-	<a href="{path}?director={tag}{currentTag ? `&tag=${currentTag}` : ''}" rel=prefetch class:current={tag === currentCollaborator} on:click={toggleCollaborators}><h6><Tag id={tag} /></h6></a>
-	{/each}
-  </div>
-  {/if} -->
-</nav>

@@ -51,7 +51,7 @@ body {
 
 main {
   /* min-height: 100vh; */
-  padding: var(--gutter);
+  padding: var(--gutter) calc(var(--gutter) / 2);
 }
 
 h1, h2, h3, h4, h5, h6, p {

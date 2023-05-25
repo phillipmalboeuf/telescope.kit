@@ -2,8 +2,8 @@
   import { onMount, tick } from 'svelte'
 
   export let src
-  export let scrollY
-  export let windowHeight
+  // export let scrollY
+  // export let windowHeight
   export let poster
 
   function onScroll(node, [y, height]) {

@@ -10,9 +10,9 @@
 <header>
   <a href="/"><h4>Telescope</h4></a>
   {#each links as link}
-  <a href={link.path}>{link.label}</a>
+  <a href={link.path}><h4>{link.label}</h4></a>
   {/each}
-  <a href="/en">English</a>
+  <a href="/en"><h4>English</h4></a>
 </header>
 
 <style lang="scss">
@@ -23,10 +23,14 @@
     width: 100vw;
     z-index: 10;
     padding: calc(var(--gutter) / 2);
-    background-color: white;
+    // background-color: white;
 
     display: flex;
     justify-content: space-between;
+
+    :global(.dark) & {
+      color: white;
+    }
 
     a {
       flex: 1;

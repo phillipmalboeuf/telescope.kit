@@ -10,6 +10,7 @@
   import Document from './document/index.svelte'
 
   export let items
+  export let grid = false
 
   $: {
     items = items.map(item => ({
@@ -18,15 +19,21 @@
     }))
   }
 
-  let scrollY = 0
-  let windowHeight
+  // let scrollY = 0
+  // let windowHeight
 </script>
 
-<style>
+<style lang="scss">
   ol {
     list-style: none;
     padding: 0;
     margin: 0;
+
+    &.grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--gutter);
+    }
   }
 
     li {
@@ -132,9 +139,9 @@
       }
 </style>
 
-<svelte:window bind:scrollY={scrollY} bind:innerHeight={windowHeight} />
+<!-- <svelte:window bind:scrollY={scrollY} bind:innerHeight={windowHeight} /> -->
 
-<ol>
+<ol class:grid>
 	{#each items as item, index (item.sys.id)}
   
 	<li in:fly|local="{{ x: 200 * (index % 2 ? 1 : -1), delay: 666, duration: 666 }}" out:fly|local="{{ x: 200 * (index % 2 ? 1 : -1), duration: 666 }}" class:loose={item.type === 'looseText'}>
@@ -147,7 +154,7 @@
       <figure>
         {#if item.type === 'film'}
         {#if !$page.data.isMobile && item.fields.teaser}
-        <ListVideo {scrollY} {windowHeight} src={item.fields.animationList || item.fields.teaser}
+        <ListVideo src={item.fields.animationList || item.fields.teaser}
           poster={`${item.fields.poster.fields.file.url}?w=900`} />
         {:else}
         <Picture media={item.fields.poster} />

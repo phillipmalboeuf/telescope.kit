@@ -1,7 +1,9 @@
-<script>
-  export let media
-  export let small = false
-  export let webp = false
+<script lang="ts">
+  import type { Asset } from 'contentful'
+
+  export let media: Asset
+  export let small: boolean = false
+  export let webp: boolean = false
 </script>
 
 <style>

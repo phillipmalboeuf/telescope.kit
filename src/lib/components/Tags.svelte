@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores'
 
 	import Tag from './Tag.svelte'
-  export let tags
-	export let path
+  export let tags: string[]
+	export let path: string = undefined
 
 	let contentTags
 	$: {
@@ -18,7 +18,11 @@
 
 
 {#each tags as tag, index (tag)}
-{#if tag !== 'recent' && (!contentTags[tag] || !contentTags[tag].isACollaborator)}
-{#if index}&nbsp;• {/if}<a href="{path}?tag={tag}"><Tag id={tag} /></a> 
+{#if tag !== 'recent' && (!contentTags[tag] || !contentTags[tag]?.isACollaborator)}
+{#if path}
+<a href="{path}?tag={tag}"><Tag id={tag} /></a> 
+{:else}
+<span><Tag id={tag} /></span>
+{/if}
 {/if}
 {/each}

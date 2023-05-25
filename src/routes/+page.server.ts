@@ -1,15 +1,15 @@
 // import { error } from '@sveltejs/kit'
 
-import { contentful } from '$lib/clients/contentful'
+import { contentful, type Collaborator, type Film } from '$lib/clients/contentful'
 
 export const load = (async ({ locals, url, params }) => {
-  // const [articles, films] = await Promise.all([
-  //   contentful.getEntries({ content_type: 'article' }),
-  //   contentful.getEntries({ content_type: 'film' }),
-  // ])
+  const [directors, films] = await Promise.all([
+    contentful.getEntries<Collaborator>({ content_type: 'collaborator', 'fields.isADirector': true }),
+    contentful.getEntries<Film>({ content_type: 'film', 'fields.director[exists]': true, order: ['-fields.publishedDate'] }),
+  ])
 
   return {
-    // articles,
-    // films
+    directors,
+    films
   }
 })

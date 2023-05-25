@@ -11,7 +11,15 @@
 	<title>News</title>
 </svelte:head>
 
-<Filters path="articles" all="{data.locale === 'fr-CA' ? 'Tous les nouvelles' : 'All News'}" currentTag={data.currentTag} currentCollaborator={data.currentCollaborator} />
+<nav>
+  <Filters path="articles" tags={data.articleTags} currentTag={data.currentTag} />
+</nav>
 
-<List items={data.articles.items} />
+<List items={data.articles.items} grid />
 <Pagination path="articles" currentPage={data.currentPage} numberOfPages={data.numberOfPages} />
+
+<style lang="scss">
+  nav {
+    margin-bottom: var(--gutter);
+  }
+</style>
