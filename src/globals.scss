@@ -100,6 +100,12 @@ h4 {
   font-variation-settings: "wdth" 100;
 }
 
+h5 {
+  font-family: system-ui, -apple-system;
+  font-size: var(--small);
+  text-transform: none;
+}
+
 h6 {
   font-family: system-ui, -apple-system;
   font-size: var(--body);

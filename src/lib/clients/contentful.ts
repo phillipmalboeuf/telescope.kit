@@ -90,3 +90,52 @@ export interface Tag {
     isACollaborator: EntryFieldTypes.Boolean
   }
 }
+
+export interface AboutPiece {
+  contentTypeId: 'aboutPiece'
+  fields: {
+    title: EntryFieldTypes.Symbol;
+    identifier: EntryFieldTypes.Symbol;
+    publishedDate?: EntryFieldTypes.Date;
+    tags: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
+    body: EntryFieldTypes.RichText;
+  }
+}
+
+export interface LooseText {
+  contentTypeId: 'looseText'
+  fields: {
+    body: EntryFieldTypes.RichText;
+  }
+}
+
+export interface ContactPerson {
+  contentTypeId: 'contactPerson'
+  fields: {
+    name: EntryFieldTypes.Symbol;
+    position?: EntryFieldTypes.Symbol;
+    phone?: EntryFieldTypes.Symbol;
+    email?: EntryFieldTypes.Symbol;
+    category?: EntryFieldTypes.Symbol;
+  }
+}
+
+export interface ContactPoint {
+  contentTypeId: 'contactPoint'
+  fields: {
+    title: EntryFieldTypes.Symbol;
+    linkLabel: EntryFieldTypes.Symbol;
+    link: EntryFieldTypes.Symbol;
+    publishedDate?: EntryFieldTypes.Date;
+  }
+}
+
+export interface Page {
+  contentTypeId: 'page'
+  fields: {
+    title: EntryFieldTypes.Symbol;
+    identifier: EntryFieldTypes.Symbol;
+    description?: EntryFieldTypes.Text;
+    content?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<AboutPiece | Article | Collaborator | ContactPerson | ContactPoint | Film | LooseText>>;
+  }
+}

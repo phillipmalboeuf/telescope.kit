@@ -2,9 +2,17 @@
   import Filters from '$lib/components/Filters.svelte'
   import List from '$lib/components/List.svelte'
   import Pagination from '$lib/components/Pagination.svelte'
+  import type { Entry } from 'contentful'
+  import type { Collaborator } from '$lib/clients/contentful'
   
   import type { PageData } from './$types'
   export let data: PageData
+
+  let directors: Entry<Collaborator>[]
+
+	$: {
+		directors = data.page.fields.content.filter(c => c.sys.contentType.sys.id === 'collaborator') as Entry<Collaborator>[]
+	}
 </script>
 
 <svelte:head>
@@ -12,7 +20,7 @@
 </svelte:head>
 
 <nav>
-  {#each data.directors.items as director}
+  {#each directors as director}
   {#if data.currentDirector === director.fields.tagIdentifier}
   <a href="/films" class:current={true} rel=prefetch>
     <h4>{director.fields.name}</h4>

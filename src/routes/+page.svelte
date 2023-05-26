@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Film } from '$lib/clients/contentful'
+  import type { Collaborator, Film } from '$lib/clients/contentful'
 	import type { Entry } from 'contentful'
 	import { fade, fly } from 'svelte/transition'
 
@@ -15,6 +15,11 @@
   export let data: PageData
 
 	let active: Entry<Film>
+	let directors: Entry<Collaborator>[]
+
+	$: {
+		directors = data.page.fields.content.filter(c => c.sys.contentType.sys.id === 'collaborator') as Entry<Collaborator>[]
+	}
 
 	$: {
 		if (browser && $page.route) {
@@ -25,7 +30,7 @@
 
 <section class:active>
 	<nav>
-		{#each data.directors.items as director}
+		{#each directors as director}
 		{@const film = data.films.items.find(film => film.fields.director?.fields.tagIdentifier === director.fields.tagIdentifier)}
 		<a href="/films?director={director.fields.tagIdentifier}" on:pointerenter={() => {
 			active = film
