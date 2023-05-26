@@ -52,7 +52,7 @@
       &:focus,
       &.current {
         h4 {
-          font-variation-settings: "wdth" 500;
+          font-variation-settings: "wdth" 400;
         }
       }
     }

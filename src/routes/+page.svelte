@@ -8,10 +8,19 @@
 	import Tags from '$lib/components/Tags.svelte'
 	import ListVideo from '$lib/components/ListVideo.svelte'
 
+	import { page } from '$app/stores'
+	import { browser } from '$app/environment'
+
   import type { PageData } from './$types'
   export let data: PageData
 
 	let active: Entry<Film>
+
+	$: {
+		if (browser && $page.route) {
+			document.documentElement.classList.remove('dark')
+		}
+	}
 </script>
 
 <section class:active>
@@ -25,11 +34,11 @@
 			// active = undefined
 			// document.documentElement.classList.remove('dark')
 		}} on:click={() => {
-			document.documentElement.classList.remove('dark')
+			// document.documentElement.classList.remove('dark')
 		}}>
 			<h4>{director.fields.name}</h4>
 			{#if film}
-			<h4>{film.fields.title}</h4>
+			<h4 class="wide">{film.fields.title}</h4>
 			<h4><Tags tags={film.fields.tags} /></h4>
 			{/if}
 		</a>

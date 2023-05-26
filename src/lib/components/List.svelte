@@ -33,6 +33,10 @@
       display: flex;
       flex-wrap: wrap;
       gap: var(--gutter);
+
+      li {
+        text-align: left;
+      }
     }
   }
 
@@ -97,6 +101,7 @@
           figcaption h6 {
             /* transform: translateX(-25%); */
 
+            max-width: 400px;
             transition: transform 420ms, font-variation-settings 333ms;
             will-change: transform;
           }

@@ -7,10 +7,10 @@
   --gutter: 3vw;
 
   --big: 6.5vw;
-  --medium: 19pt;
-  --small: 12pt;
-  --tiny: 7pt;
-  --body: 15pt;
+  --medium: 20px;
+  --small: 16px;
+  --tiny: 14px;
+  --body: 16px;
 }
 
 @media (min-width: 1500px) {
@@ -24,10 +24,10 @@
     --gutter: 6.5vw;
 
     --big: 8vw;
-    --medium: 12pt;
-    --small: 9pt;
-    --tiny: 6pt;
-    --body: 12pt;
+    // --medium: 12pt;
+    // --small: 9pt;
+    // --tiny: 6pt;
+    // --body: 12pt;
   }
 }
 
@@ -66,6 +66,10 @@ h1, h2, h3, h4, h5, h6, blockquote {
   text-transform: uppercase;
   line-height: 1.2;
   transition: font-variation-settings 333ms;
+
+  &.wide {
+    font-variation-settings: "wdth" 400;
+  }
 }
 
 h4, h5, h6 {
@@ -93,11 +97,14 @@ h2 {
 
 h4 {
   font-size: var(--small);
+  font-variation-settings: "wdth" 100;
 }
 
 h6 {
-  font-size: var(--tiny);
-  font-variation-settings: "wdth" 200;
+  font-family: system-ui, -apple-system;
+  font-size: var(--body);
+  text-transform: none;
+  // font-variation-settings: "wdth" 200;
 }
 
 @media (hover: hover) {
