@@ -42,6 +42,10 @@
 
     li {
       text-align: right;
+
+      @media (max-width: 900px) {
+        text-align: left;
+      }
     }
 
     a {
@@ -68,12 +72,21 @@
         
         position: relative;
         z-index: 1;
+
+        @media (max-width: 900px) {
+          width: 100%;
+          height: calc(50vh - (var(--gutter) * 1.5));
+        }
       }
 
       a.film figure :global(video),
       a.film figure :global(img) {
         width: 66vw;
-        height: calc(66vw * 9 / 14);
+        height: calc(100vw * 9 / 14);
+
+        @media (max-width: 900px) {
+          width: 100%;
+        }
       }
 
         figcaption {
@@ -104,6 +117,12 @@
             max-width: 400px;
             transition: transform 420ms, font-variation-settings 333ms;
             will-change: transform;
+
+            @media (max-width: 900px) {
+              &:nth-child(2) {
+                display: none;
+              }
+            }
           }
 
       @media (hover: hover) {
@@ -125,6 +144,10 @@
         a:hover :global(img:hover) {
           width: calc(52.5vw - (var(--gutter) * 1.5));
           cursor: pointer;
+
+          @media (max-width: 900px) {
+            width: 100%;
+          }
         }
 
         a:hover :global(h6:hover),
@@ -140,6 +163,10 @@
         a.film:hover figure :global(video:hover),
         a.film:hover figure :global(img:hover) {
           width: 70vw;
+
+          @media (max-width: 900px) {
+            width: 100%;
+          }
         }
       }
 </style>

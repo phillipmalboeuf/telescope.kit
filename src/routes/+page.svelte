@@ -61,7 +61,7 @@
 </section>
 
 <h1>
-	TELESCOPE
+	<!-- TELESCOPE -->
   <!-- <Hover texts={['TELESCOPE', 'TELESCOPE', 'TELESCOPE', 'TELESCOPE', 'TELESCOPE', 'TELESCOPE', 'TELESCOPE']} /> -->
 </h1>
 
@@ -116,6 +116,12 @@
 				&:first-child {
 					opacity: 1;
 				}
+
+				@media (max-width: 900px) {
+					&:not(:first-child) {
+						display: none;
+					}
+				}
 			}
 
 			a {
@@ -130,22 +136,4 @@
 				}
 			}
 		}
-
-	h1 {
-		/* cursor: move; */
-		font-family: 'Telescopique', system-ui, -apple-system;
-		font-variation-settings: "wdth" 500;
-		margin-top: calc(var(--gutter) * 1);
-		/* margin-bottom: calc(var(--gutter) * 2.5);
-		line-height: 1.05; */
-
-		text-align: center;
-		will-change: transform;
-	}
-
-	@media (max-width: 900px) {
-    h1 {
-      font-size: 6.33vw;
-    }
-  }
 </style>

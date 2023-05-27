@@ -6,7 +6,7 @@
   --rythm: 20px;
   --gutter: 3vw;
 
-  --big: 6.5vw;
+  --big: 7vw;
   --medium: 20px;
   --small: 16px;
   --tiny: 14px;
@@ -15,7 +15,7 @@
 
 @media (min-width: 1500px) {
   :root {
-    --tiny: 8pt;
+    // --tiny: 8pt;
   }
 }
 
@@ -24,6 +24,7 @@
     --gutter: 6.5vw;
 
     --big: 8vw;
+    --tiny: 12px;
     // --medium: 12pt;
     // --small: 9pt;
     // --tiny: 6pt;
@@ -155,8 +156,8 @@ blockquote {
 }
 
 small {
-  font-size: calc(var(--rythm)/1.333);
-  line-height: calc(var(--rythm)/1.333);
+  font-size: var(--tiny);
+  line-height: 1;
 }
 
 ul, ol {

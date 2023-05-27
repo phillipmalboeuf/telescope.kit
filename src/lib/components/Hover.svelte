@@ -42,13 +42,21 @@
       w: element.offsetWidth,
       h: element.offsetHeight
     }
+
+    move({ layerX: element.offsetWidth, layerY: element.offsetHeight / 4 })
   })
 </script>
 
-<style>
+<style lang="scss">
   div {
     position: relative;
     text-align: center;
+
+    span {
+      font-family: 'Telescopique Splash', 'Telescopique', system-ui, -apple-system;
+      font-variation-settings: "wdth" 500;
+      will-change: transform;
+      }
   }
 </style>
 
@@ -60,7 +68,7 @@
   {#each texts as t, i}
     {#each t as letter, index}
     {#if variants}
-    <span style='font-variation-settings: "wdth" {variants.wdth(index / (t.length - 1))}, "wght" {variants.wght(i / (texts.length - 1))}'>{letter}</span>
+    <span style='font-variation-settings: "wdth" {variants.wdth(index / (t.length - 1))}, "wght" {variants.wght(i / (texts.length - 1 || 1))}'>{letter}</span>
     {:else}
     <span style='font-variation-settings: "wdth" 500, "wght" 80'>{letter}</span>
     {/if}

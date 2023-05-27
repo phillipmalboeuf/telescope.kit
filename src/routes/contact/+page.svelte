@@ -62,7 +62,15 @@
 
 	h2,
 	nav {
-		margin-left: 33vw;
+		margin-left: calc(33.3vw - (var(--gutter) / 3));
+
+		@media (max-width: 900px) {
+			margin-left: 0;
+		}
+	}
+
+	h2 {
+		margin-bottom: calc(var(--gutter) * 1);
 	}
 
 		nav {
@@ -74,16 +82,32 @@
 			&:last-child {
 				margin-top: calc(var(--gutter) * 4.5);
 			}
+
+			article {
+				width: calc(25% - (var(--gutter) / 2));
+
+				@media (max-width: 900px) {
+					width: calc(50% - (var(--gutter) / 2));
+				}
+			}
 		}
 
 			h5 {
 				margin-bottom: calc(var(--rythm) / 2.5);
+
+				@media (max-width: 900px) {
+					font-size: var(--body);
+				}
 			}
 
 			h6 {
 				margin-bottom: 0;
 				opacity: 0.5;
 				transition: opacity 666ms;
+
+				@media (max-width: 900px) {
+					font-size: var(--tiny);
+				}
 
 				a:hover &,
 				a:focus & {

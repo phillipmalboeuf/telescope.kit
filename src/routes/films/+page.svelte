@@ -53,6 +53,18 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    
+    @media (max-width: 900px) {
+      position: relative;
+      height: auto;
+      width: 100%;
+      left: 0;
+      margin-bottom: var(--gutter);
+
+      br:not(:first-of-type) {
+        display: none;
+      }
+    }
 
     a {
       
