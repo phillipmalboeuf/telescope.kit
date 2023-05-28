@@ -88,7 +88,7 @@
 	section {
 		position: relative;
 		min-height: calc(var(--height) + (var(--gutter) * 1.5));
-		margin-top: calc(var(--gutter) * -3);
+		margin-top: calc(var(--gutter) * -3.5);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
