@@ -94,7 +94,7 @@
 
   video {
     width: 100vw;
-    height: 100vh;
+    height: var(--height);
     margin: calc(var(--gutter) * -1) 0 0 calc(var(--gutter) * -1);
   }
 
@@ -117,7 +117,7 @@
   }
 
   figure.fullscreen video {
-    height: 100vh;
+    height: var(--height);
     margin: 0;
   }
 

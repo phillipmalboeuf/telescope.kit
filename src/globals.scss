@@ -11,6 +11,12 @@
   --small: 16px;
   --tiny: 14px;
   --body: 16px;
+
+  --height: 100vh;
+
+  @supports (height: 100dvh) {
+    --height: 100dvh;
+  }
 }
 
 @media (min-width: 1500px) {

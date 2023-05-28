@@ -100,7 +100,7 @@
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: var(--height);
         color: white;
         background-color: black;
         padding: calc(var(--gutter) * 5) calc(var(--gutter)/2);
@@ -110,6 +110,10 @@
         flex-direction: column;
         justify-content: start;
         gap: calc(var(--rythm) / 2);
+
+        a {
+          flex: none;
+        }
       }
     }
 

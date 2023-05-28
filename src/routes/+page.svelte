@@ -86,7 +86,7 @@
 
 <style lang="scss">
 	section {
-		min-height: calc(100vh - (var(--gutter) * 1));
+		min-height: calc(var(--height) - (var(--gutter) * 1));
 		margin-top: calc(var(--gutter) * -2);
 		display: flex;
 		flex-direction: column;
@@ -121,7 +121,7 @@
 			height: 100%;
 			
 			h4 {
-				margin-bottom: var(--tiny);
+				margin-bottom: 0;
 				display: flex;
 				gap: var(--gutter);
 				opacity: 0;
@@ -141,6 +141,8 @@
 			a {
 				display: flex;
 				justify-content: space-between;
+				align-items: center;
+				margin-bottom: var(--tiny);
 
 				button {
 					display: none;

@@ -40,7 +40,7 @@
     align-items: center;
 
 		width: 100vw;
-		height: 100vh;
+		height: var(--height);
   }
 
     aside button {
