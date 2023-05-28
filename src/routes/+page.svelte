@@ -125,7 +125,7 @@
 				display: flex;
 				gap: var(--gutter);
 				opacity: 0;
-				transition: opacity 666ms;
+				transition: opacity 666ms, font-variation-settings 333ms;
 
 				&:first-child {
 					opacity: 1;
@@ -157,6 +157,10 @@
 				&.active {
 					h4, button {
 						opacity: 1;
+					}
+
+					h4:first-child {
+						font-variation-settings: "wdth" 235;
 					}
 				}
 			}
