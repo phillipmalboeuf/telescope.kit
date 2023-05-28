@@ -86,8 +86,9 @@
 
 <style lang="scss">
 	section {
-		min-height: calc(var(--height) - (var(--gutter) * 1));
-		margin-top: calc(var(--gutter) * -2);
+		position: relative;
+		min-height: calc(var(--height) + (var(--gutter) * 1.5));
+		margin-top: calc(var(--gutter) * -3);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -101,8 +102,8 @@
 		figure {
 			position: absolute;
 			top: 0;
-			left: 0;
-			width: 100%;
+			left: calc(var(--gutter) * -1);
+			width: calc(100% + (var(--gutter) * 2));
 			height: 100%;
 			margin: 0;
 			z-index: 0;
