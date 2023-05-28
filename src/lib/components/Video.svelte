@@ -308,14 +308,14 @@
   </figcaption>
   <figcaption class="title"><slot name="title" /></figcaption>
 
-  <!-- <video src={srcs ? srcs[resolution].fields.file.url.replace('//videos.ctfassets.net', '//telescopefilms.b-cdn.net') : undefined} autoplay disableRemotePlayback
+  <video src={srcs ? srcs[resolution].fields.file.url.replace('//videos.ctfassets.net', '//telescopefilms.b-cdn.net') : undefined} autoplay disableRemotePlayback
     bind:currentTime={time}
     bind:duration
     bind:buffered
     bind:paused
     bind:volume
     on:play={activate}
-    on:click={togglePaused} /> -->
+    on:click={togglePaused} />
   
   <figcaption class="controls">
     <button on:click={togglePaused}>{#if paused}➞{:else}❚{/if}</button>
