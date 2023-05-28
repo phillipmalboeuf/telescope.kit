@@ -32,9 +32,15 @@
 	<nav>
 		{#each directors as director}
 		{@const film = data.films.items.find(film => film.fields.director?.fields.tagIdentifier === director.fields.tagIdentifier)}
-		<a href="/films?director={director.fields.tagIdentifier}" on:pointerenter={() => {
+		<a href="/films?director={director.fields.tagIdentifier}" class:active={active && active.fields.identifier === film.fields.identifier} on:mouseenter={() => {
 			active = film
 			document.documentElement.classList.add('dark')
+		}} on:click={(e) => {
+			if (!active || active.fields.identifier !== film.fields.identifier) {
+				e.preventDefault()
+				active = film
+				document.documentElement.classList.add('dark')
+			}
 		}} on:pointerleave={() => {
 			// active = undefined
 			// document.documentElement.classList.remove('dark')
@@ -46,6 +52,14 @@
 			<h4 class="wide">{film.fields.title}</h4>
 			<h4><Tags tags={film.fields.tags} /></h4>
 			{/if}
+			<button>
+				<svg xmlns="http://www.w3.org/2000/svg" width="46.5" height="18.5" viewBox="0 0 46.5 18.5">
+					<g id="Group_425" data-name="Group 425" transform="translate(-330 -349.883)">
+						<line id="Line_9" data-name="Line 9" x2="46.5" transform="translate(330 359.133)" fill="none" stroke="#fff" stroke-width="2.4"/>
+						<line id="Line_10" data-name="Line 10" x2="18.5" transform="translate(353 349.883) rotate(90)" fill="none" stroke="#fff" stroke-width="2.4"/>
+					</g>
+				</svg>
+			</button>
 		</a>
 		{/each}
 	</nav>
@@ -128,9 +142,20 @@
 				display: flex;
 				justify-content: space-between;
 
+				button {
+					display: none;
+					opacity: 0;
+					transition: opacity 666ms;
+
+					@media (max-width: 900px) {
+						display: inline-block;
+					}
+				}
+
 				&:hover,
-				&:focus {
-					h4 {
+				&:focus,
+				&.active {
+					h4, button {
 						opacity: 1;
 					}
 				}
