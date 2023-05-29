@@ -25,6 +25,7 @@
 
 <style lang="scss">
   ol {
+    overflow-x: hidden;
     list-style: none;
     padding: 0;
     margin: 0;
