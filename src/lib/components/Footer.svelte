@@ -2,9 +2,9 @@
   import Hover from './Hover.svelte'
 
   const links = [
-    { label: 'Instagram', path: '/films' },
-    { label: 'Facebook', path: '/about' },
-    { label: 'Vimeo', path: '/articles' },
+    { label: 'Instagram', path: 'https://www.instagram.com/telescope_films/' },
+    { label: 'Facebook', path: 'https://www.facebook.com/telescopefilms' },
+    { label: 'Vimeo', path: '/films' },
   ]
 </script>
 
@@ -17,7 +17,7 @@
 
   <nav>
     {#each links as link}
-    <a href={link.path}><small>{link.label}</small></a>
+    <a href={link.path} rel="external"><small>{link.label}</small></a>
     {/each}
     <a href="/en"><small>English</small></a>
   </nav>
