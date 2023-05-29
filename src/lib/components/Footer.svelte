@@ -4,7 +4,7 @@
   const links = [
     { label: 'Instagram', path: 'https://www.instagram.com/telescope_films/' },
     { label: 'Facebook', path: 'https://www.facebook.com/telescopefilms' },
-    { label: 'Vimeo', path: '/films' },
+    { label: 'Vimeo', path: 'https://vimeo.com/telescopefilms' },
   ]
 </script>
 
