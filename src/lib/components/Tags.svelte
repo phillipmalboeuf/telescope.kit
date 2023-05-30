@@ -4,6 +4,7 @@
 	import Tag from './Tag.svelte'
   export let tags: string[]
 	export let path: string = undefined
+	export let seperator: string = undefined
 
 	let contentTags
 	$: {
@@ -19,6 +20,7 @@
 
 {#each tags as tag, index (tag)}
 {#if tag !== 'recent' && (!contentTags[tag] || !contentTags[tag]?.isACollaborator)}
+{#if seperator && index > 0}&nbsp;{seperator}{/if}
 {#if path}
 <a href="{path}?tag={tag}"><Tag id={tag} /></a> 
 {:else}

@@ -304,7 +304,7 @@
 
 <figure class:inactive class:fullscreen on:mousemove={activate} bind:this={element}>
   <figcaption class="breadcrumbs">
-    <h6><a href="" rel=prefetch>Telescope</a> <a href="/films" rel=prefetch>{$page.data.locale === 'fr-CA' ? 'Retour aux films' : 'Back to Films'}</a></h6>
+    <h6><a href="/films{$page.url.searchParams.has("director") ? `?director=${$page.url.searchParams.get("director")}` : ''}" rel=prefetch>{$page.data.locale === 'fr-CA' ? 'Retour aux films' : 'Back to Films'}</a></h6>
   </figcaption>
   <figcaption class="title"><slot name="title" /></figcaption>
 

@@ -16,7 +16,7 @@
 
 <Video srcs={data.film.fields.video} grabs={data.film.fields.screenGrabs}>
 	<h6 slot="title">
-		{data.film.fields.title}{#if data.film.fields.realisateur}&nbsp;• {data.film.fields.realisateur}{/if} • <Tags tags={data.film.fields.tags} path="data.films" />
+		{data.film.fields.title}{#if data.film.fields.realisateur}&nbsp;• {data.film.fields.realisateur}{/if} • <Tags tags={data.film.fields.tags} seperator="•" path="data.films" />
 	</h6>
 </Video>
 

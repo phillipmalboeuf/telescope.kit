@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { fade, fly } from 'svelte/transition'
   import { onMount, tick } from 'svelte'
 
@@ -11,6 +11,7 @@
 
   export let items
   export let grid = false
+  export let query: string = undefined
 
   $: {
     items = items.map(item => ({
@@ -184,7 +185,7 @@
     <Document body={item.fields.body} />
 
     {:else}
-    <a class={item.type} rel='prefetch' href='{item.type}s/{item.fields.identifier}'>
+    <a class={item.type} rel='prefetch' href='{item.type}s/{item.fields.identifier}{query}'>
       <figure>
         {#if item.type === 'film'}
         {#if !$page.data.isMobile && item.fields.teaser}
