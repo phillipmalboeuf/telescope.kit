@@ -29,7 +29,10 @@
 </script>
 
 <section class:active>
-	<nav>
+	<nav on:pointerleave={() => {
+		active = undefined
+		document.documentElement.classList.remove('dark')
+	}}>
 		{#each directors as director}
 		{@const film = data.films.items.find(film => film.fields.director?.fields.tagIdentifier === director.fields.tagIdentifier)}
 		<a href="/films?director={director.fields.tagIdentifier}" class:active={active && active.fields.identifier === film.fields.identifier} on:mouseenter={() => {
@@ -41,11 +44,6 @@
 				active = film
 				document.documentElement.classList.add('dark')
 			}
-		}} on:pointerleave={() => {
-			// active = undefined
-			// document.documentElement.classList.remove('dark')
-		}} on:click={() => {
-			// document.documentElement.classList.remove('dark')
 		}}>
 			<h4>{director.fields.name}</h4>
 			{#if film}
