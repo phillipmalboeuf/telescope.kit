@@ -12,7 +12,7 @@
 </script>
 
 <header class:visible>
-  <a href="/" on:click={() => visible = false}><h4><Hover texts={['Telescope']} /></h4></a>
+  <a href="/" on:click={() => visible = false}><h4><Hover noHover texts={['Telescope']} /></h4></a>
 
   <button on:click={() => visible = !visible}>
     {#if !visible}
