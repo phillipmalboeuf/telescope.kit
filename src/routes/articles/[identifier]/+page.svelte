@@ -7,6 +7,8 @@
 
   import type { PageData } from './$types'
   export let data: PageData
+
+	console.log(data.article)
 </script>
 
 
@@ -14,9 +16,10 @@
 	<title>{data.article.fields.title}</title>
 </svelte:head>
 
+
+<nav><a rel=prefetch href="/articles">{data.locale === 'fr-CA' ? 'Retour aux Nouvelles' : 'Back to News'}</a></nav>
 <section>
 	<nav><h1>{data.article.fields.title} • <Tags tags={data.article.fields.tags} path="/articles" /></h1></nav>
-	<nav><a rel=prefetch href="/articles">{data.locale === 'fr-CA' ? 'Retour aux Nouvelles' : 'Back to News'}</a></nav>
 
 	<div>
 		<aside>
@@ -49,23 +52,16 @@
 	}
 
 	nav {
+		margin-top: calc(var(--gutter) * -1);
+		margin-bottom: calc(var(--rythm) * 3);
+	}
+
+	section > nav {
 		position: absolute;
 		top: 0;
 		right: 0;
 		height: 100%;
-	}
-
-	nav + nav {
-		top: calc(var(--gutter) / -2);
-		left: calc(var(--gutter) / -1.5);
-		right: auto;
-		height: auto;
-		color: white;
-		/* max-width: calc(42.5vw - var(--gutter)); */
-	}
-
-	nav + nav a {
-		padding: calc(var(--gutter) / 4);
+		margin: 0;
 	}
 
 	h1 {

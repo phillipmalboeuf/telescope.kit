@@ -185,7 +185,7 @@
     <Document body={item.fields.body} />
 
     {:else}
-    <a class={item.type} rel='prefetch' href='{item.type}s/{item.fields.identifier}{query}'>
+    <a class={item.type} rel='prefetch' href='{item.type}s/{item.fields.identifier}{query ? query : ''}'>
       <figure>
         {#if item.type === 'film'}
         {#if !$page.data.isMobile && item.fields.teaser}
