@@ -46,7 +46,7 @@
 
 	<nav>
 		{#each points as point}
-		<a href={`${point.fields.link}`}>
+		<a href={`${point.fields.link}`} rel="external">
 			<h5><strong>{point.fields.title}</strong></h5>
 			<h6>{point.fields.linkLabel}</h6>
 		</a>

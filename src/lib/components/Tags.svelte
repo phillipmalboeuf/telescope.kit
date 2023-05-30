@@ -22,7 +22,7 @@
 {#if tag !== 'recent' && (!contentTags[tag] || !contentTags[tag]?.isACollaborator)}
 {#if seperator && index > 0}&nbsp;{seperator}{/if}
 {#if path}
-<a href="{path}?tag={tag}"><Tag id={tag} /></a> 
+<a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?tag={tag}"><Tag id={tag} /></a> 
 {:else}
 <span><Tag id={tag} /></span>
 {/if}

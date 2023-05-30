@@ -41,7 +41,7 @@
 </style>
 
 
-<button on:click={() => visible = !visible}>{$page.data.locale === 'fr-CA' ? 'Liste complète des crédits' : 'Full Credit List'} {#if visible}↑{:else}↓{/if}</button>
+<button on:click={() => visible = !visible}>{$page.data.locale === 'fr' ? 'Liste complète des crédits' : 'Full Credit List'} {#if visible}↑{:else}↓{/if}</button>
 
 <aside class:visible>
   {credits}

@@ -4,6 +4,7 @@
   import Pagination from '$lib/components/Pagination.svelte'
   import type { Entry } from 'contentful'
   import type { Collaborator } from '$lib/clients/contentful'
+  import { page } from '$app/stores'
   
   import type { PageData } from './$types'
   export let data: PageData
@@ -22,11 +23,11 @@
 <nav>
   {#each directors as director}
   {#if data.currentDirector === director.fields.tagIdentifier}
-  <a href="/films" class:current={true} rel=prefetch>
+  <a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}/films" class:current={true} rel=prefetch>
     <h4>{director.fields.name}</h4>
   </a>
   {:else}
-  <a href="/films?director={director.fields.tagIdentifier}" rel=prefetch>
+  <a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}/films?director={director.fields.tagIdentifier}" rel=prefetch>
     <h4>{director.fields.name}</h4>
   </a>
   {/if}

@@ -185,7 +185,7 @@
     <Document body={item.fields.body} />
 
     {:else}
-    <a class={item.type} rel='prefetch' href='{item.type}s/{item.fields.identifier}{query ? query : ''}'>
+    <a class={item.type} rel='prefetch' href={`${$page.data.locale === 'fr' ? `/${item.type}s/${item.fields.identifier}${query ? query : ''}` : `/${$page.data.locale}/${item.type}s/${item.fields.identifier}${query ? query : ''}`}`}>
       <figure>
         {#if item.type === 'film'}
         {#if !$page.data.isMobile && item.fields.teaser}
@@ -207,6 +207,6 @@
     {/if}
   </li>
   {:else}
-  <h6><em>{$page.data.locale === 'fr-CA' ? 'Aucun résultats.' : 'No results.'}</em></h6>
+  <h6><em>{$page.data.locale === 'fr' ? 'Aucun résultats.' : 'No results.'}</em></h6>
 	{/each}
 </ol>

@@ -10,14 +10,14 @@ export const load = (async ({ locals, url, params }) => {
   const currentDirector = url.searchParams.get('director')
 
   const [page, films, tags] = await Promise.all([
-    contentful.getEntry<Page>('6FmiRHva6nNEgBkXrRNkTY', { include: 2 }),
-    contentful.getEntries<Film>({ content_type: 'film', order: ['-fields.publishedDate', '-sys.createdAt'], limit, skip: currentPage * limit, ...currentDirector && {
+    contentful.getEntry<Page>('6FmiRHva6nNEgBkXrRNkTY', { include: 2, locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
+    contentful.getEntries<Film>({ content_type: 'film', order: ['-fields.publishedDate', '-sys.createdAt'], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA', limit, skip: currentPage * limit, ...currentDirector && {
       'fields.director.fields.tagIdentifier': currentDirector,
       'fields.director.sys.contentType.sys.id': 'collaborator'
     }, ...currentTag && {
       'fields.tags': currentTag,
     } }),
-    contentful.getEntries<Film>({ content_type: 'film', limit: 200, select: ['fields.tags'], ...currentDirector && {
+    contentful.getEntries<Film>({ content_type: 'film', limit: 200, select: ['fields.tags'], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA', ...currentDirector && {
       'fields.director.fields.tagIdentifier': currentDirector,
       'fields.director.sys.contentType.sys.id': 'collaborator'
     } }),

@@ -1,18 +1,31 @@
 <script lang="ts">
+  import { page } from '$app/stores'
   import Hover from './Hover.svelte'
 
-  const links = [
-    { label: 'Films', path: '/films' },
-    { label: 'Nouvelles', path: '/articles' },
-    { label: 'À propos', path: '/about' },
-    { label: 'Contact', path: '/contact' },
-  ]
+  let links: {
+    label: string,
+    path: string
+  }[]
+  
+  $: {
+    links = $page.data.locale === 'fr' ? [
+      { label: 'Films', path: '/films' },
+      { label: 'Nouvelles', path: '/articles' },
+      { label: 'À propos', path: '/about' },
+      { label: 'Contact', path: '/contact' },
+    ] : [
+      { label: 'Films', path: '/films' },
+      { label: 'News', path: '/articles' },
+      { label: 'About', path: '/about' },
+      { label: 'Contact', path: '/contact' },
+    ]
+  }
 
   let visible = false
 </script>
 
 <header class:visible>
-  <a href="/" on:click={() => visible = false}><h4><Hover noHover texts={['Telescope']} /></h4></a>
+  <a href={`${$page.data.locale === 'fr' ? '/' : `/${$page.data.locale}`}`} on:click={() => visible = false}><h4><Hover noHover texts={['Telescope']} /></h4></a>
 
   <button on:click={() => visible = !visible}>
     {#if !visible}
@@ -33,9 +46,13 @@
 
   <nav>
     {#each links as link}
-    <a href={link.path} on:click={() => visible = false}><h4>{link.label}</h4></a>
+    <a href={`${$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}${link.path}`} on:click={() => visible = false}><h4>{link.label}</h4></a>
     {/each}
+    {#if $page.data.locale === 'fr'}
     <a href="/en" on:click={() => visible = false}><h4>English</h4></a>
+    {:else}
+    <a href="/" on:click={() => visible = false}><h4>Français</h4></a>
+    {/if}
   </nav>
 </header>
 

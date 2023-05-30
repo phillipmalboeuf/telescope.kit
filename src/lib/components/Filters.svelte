@@ -14,8 +14,8 @@
 </script>
 
 <nav>
-  <a href="{path}" rel=prefetch
-    class:current={currentTag === null}><h6>Tous</h6></a>
+  <a href={`${$page.data.locale === 'fr' ? path : `/${$page.data.locale}${path}`}`} rel=prefetch
+    class:current={currentTag === null}><h6>{$page.data.locale === 'fr' ? 'Tous' : 'All'}</h6></a>
 
   {#each tags as tag}
 	{#if tag !== 'recent' && tag.indexOf('20') !== 0 && !contentTags[tag]?.isACollaborator}

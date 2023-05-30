@@ -5,6 +5,8 @@
   import Tags from '$lib/components/Tags.svelte'
   import Document from '$lib/components/document/index.svelte'
 
+	import { page } from '$app/stores'
+
   import type { PageData } from './$types'
   export let data: PageData
 
@@ -17,7 +19,7 @@
 </svelte:head>
 
 
-<nav><a rel=prefetch href="/articles">{data.locale === 'fr-CA' ? 'Retour aux Nouvelles' : 'Back to News'}</a></nav>
+<nav><a rel=prefetch href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}/articles">{data.locale === 'fr' ? 'Retour aux Nouvelles' : 'Back to News'}</a></nav>
 <section>
 	<nav><h1>{data.article.fields.title} • <Tags tags={data.article.fields.tags} path="/articles" /></h1></nav>
 

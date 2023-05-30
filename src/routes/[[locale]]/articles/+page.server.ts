@@ -9,10 +9,10 @@ export const load = (async ({ locals, url, params }) => {
   const currentTag = url.searchParams.get('tag')
 
   const [articles, tags] = await Promise.all([
-    contentful.getEntries<Article>({ content_type: 'article', order: ['-fields.publishedDate', '-sys.createdAt'], limit, skip: currentPage * limit, ...currentTag && {
+    contentful.getEntries<Article>({ content_type: 'article', order: ['-fields.publishedDate', '-sys.createdAt'], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA', limit, skip: currentPage * limit, ...currentTag && {
       'fields.tags': currentTag,
     } }),
-    contentful.getEntries<Article>({ content_type: 'article', limit: 200, select: ['fields.tags'] }),
+    contentful.getEntries<Article>({ content_type: 'article', limit: 200, select: ['fields.tags'], locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
   ])
 
   return {

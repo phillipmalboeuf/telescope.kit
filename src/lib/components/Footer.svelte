@@ -1,5 +1,6 @@
 <script lang="ts">
-  import Hover from './Hover.svelte'
+  import { page } from '$app/stores';
+import Hover from './Hover.svelte'
 
   const links = [
     { label: 'Instagram', path: 'https://www.instagram.com/telescope_films/' },
@@ -13,13 +14,17 @@
 </h1>
 
 <footer>
-  <a href="/"><small>© 2023 Télescope</small></a>
+  <a href={`${$page.data.locale === 'fr' ? '/' : `/${$page.data.locale}`}`}><small>© 2023 Télescope</small></a>
 
   <nav>
     {#each links as link}
-    <a href={link.path} rel="external"><small>{link.label}</small></a>
+    <a href={`${$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}${link.path}`} rel="external"><small>{link.label}</small></a>
     {/each}
+    {#if $page.data.locale === 'fr'}
     <a href="/en"><small>English</small></a>
+    {:else}
+    <a href="/"><small>Français</small></a>
+    {/if}
   </nav>
 </footer>
 
