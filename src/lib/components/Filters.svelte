@@ -14,7 +14,7 @@
 </script>
 
 <nav>
-  <a href="{path}{currentDirector ? `?director=${currentDirector}` : ''}" rel=prefetch
+  <a href="{path}" rel=prefetch
     class:current={currentTag === null}><h6>Tous</h6></a>
 
   {#each tags as tag}
