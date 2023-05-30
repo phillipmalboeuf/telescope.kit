@@ -14,7 +14,7 @@
 </section>
 
 <style>
-	nav {
+	/* nav {
 		display: flex;
 		margin: calc(var(--rythm) * -2.5) 0 calc(var(--rythm) * 1) calc(var(--rythm) / -2);
 	}
@@ -30,20 +30,20 @@
 
 		nav a.current {
 			opacity: 1;
-		}
+		} */
 
 	section > :global(h2),
 	section > :global(h4),
 	section > :global(h6),
 	section > :global(p) {
-		width: 52.5vw;
+		width: 52vw;
 		margin-left: auto;
 	}
 
 	@media (max-width: 900px) {
-		nav {
+		/* nav {
 			margin-top: calc(var(--rythm) * -0.5);
-		}
+		} */
 
 		section > :global(h2),
 		section > :global(h4),
