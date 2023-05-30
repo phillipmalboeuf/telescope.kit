@@ -82,7 +82,7 @@
 	}
 
 		aside {
-			width: 42.5vw;
+			width: 42.3vw;
 
 			margin-top: calc(var(--gutter) * -1);
 			margin-left: calc(var(--gutter) * -1);
@@ -100,7 +100,7 @@
 
 		article {
 			width: 37.5vw;
-			margin: calc(var(--gutter) * 4) calc(var(--gutter) * 2) calc(var(--rythm) * 2) auto;
+			margin: calc(var(--gutter) * 4) calc(var(--gutter) * 2) calc(var(--rythm) * 2) calc(var(--gutter) * 2);
 		}
 
 		@media (max-width: 900px) {
