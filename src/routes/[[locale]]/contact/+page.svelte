@@ -38,7 +38,7 @@
 			<h5><strong>{person.fields.name}</strong></h5>
 			<h6>{person.fields.position}</h6>
 			{#if person.fields.phone}<a href={`tel:${person.fields.phone}`}><h6>{person.fields.phone}</h6></a>{/if}
-			{#if person.fields.email}<a href={`mailto:${person.fields.email}`}><h6>{person.fields.email}</h6></a>{/if}
+			{#if person.fields.email}<a href={`mailto:${person.fields.email}`}><h6>{@html person.fields.email.replace('@', '<div></div>@')}</h6></a>{/if}
 		</article>
 		{/each}
 	</nav>
@@ -84,7 +84,7 @@
 			}
 
 			article {
-				width: calc(25% - (var(--gutter) / 2));
+				width: calc(32% - (var(--gutter) / 2));
 
 				@media (max-width: 900px) {
 					width: calc(50% - (var(--gutter) / 2));
@@ -104,7 +104,10 @@
 				margin-bottom: 0;
 				opacity: 0.5;
 				transition: opacity 666ms;
-				word-break: break-all;
+
+				:global(div) {
+					display: inline-block;
+				}
 
 				@media (max-width: 900px) {
 					font-size: var(--tiny);
