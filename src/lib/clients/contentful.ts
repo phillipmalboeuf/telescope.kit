@@ -1,9 +1,11 @@
 import { createClient, type Asset, type Entry, type EntryFieldTypes } from 'contentful'
 import type { Document } from '@contentful/rich-text-types'
 
+const preview = true
 export const contentful = createClient({
   space: '2g43ft9kwm8s',
-  accessToken: '7-3Uo3dqE-tm2XJOO3t_JJl9-06ZkJi3vRqqQHGNBeI'
+  host: preview ? 'preview.contentful.com' : 'cdn.contentful.com',
+  accessToken: preview ? 'bzeyoF0MTUOOHjBfa_SWxbWXJtQGcSHtLuxY8U9WHAI' : '7-3Uo3dqE-tm2XJOO3t_JJl9-06ZkJi3vRqqQHGNBeI',
 }).withoutUnresolvableLinks
 
 // const select = ['sys.id', 'fields.title', 'fields.identifier', 'fields.tags', 'fields.poster', 'fields.publishedDate']

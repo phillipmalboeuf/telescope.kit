@@ -30,8 +30,8 @@ export const load = (async ({ locals, url, params }) => {
     numberOfPages: Math.ceil(films.total / limit),
     currentTag,
 		currentDirector,
-    filmTags: Object.keys(tags.items.reduce((o, tag) => {
-      tag.fields.tags.forEach(t => {
+    filmTags: Object.keys(tags.items.filter((tag) => tag).reduce((o, tag) => {
+      tag.fields?.tags.forEach(t => {
         o[t] = true
       })
       return o

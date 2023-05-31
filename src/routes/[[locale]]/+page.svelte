@@ -35,11 +35,11 @@
 	}}>
 		{#each [...directors] as director}
 		{@const film = data.films.items.find(film => film.fields.director?.fields.tagIdentifier === director.fields.tagIdentifier)}
-		<a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}/films?director={director.fields.tagIdentifier}" class:active={active && active.fields.identifier === film.fields.identifier} on:mouseenter={() => {
+		<a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}/films?director={director.fields.tagIdentifier}" class:active={active && active.fields.identifier === film?.fields.identifier} on:mouseenter={() => {
 			active = film
 			document.documentElement.classList.add('dark')
 		}} on:click={(e) => {
-			if (!active || active.fields.identifier !== film.fields.identifier) {
+			if (!active || active.fields.identifier !== film?.fields.identifier) {
 				e.preventDefault()
 				active = film
 				document.documentElement.classList.add('dark')
