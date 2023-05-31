@@ -64,7 +64,7 @@
 
 	{#if active}
 	{#key active.fields.identifier}
-	<figure transition:fade>
+	<figure>
 		<ListVideo src={active.fields.animationList || active.fields.teaser}
       poster={active.fields.poster && `${active.fields.poster.fields.file.url}?w=900`} />
 	</figure>
