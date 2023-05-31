@@ -104,6 +104,7 @@
 				margin-bottom: 0;
 				opacity: 0.5;
 				transition: opacity 666ms;
+				word-break: break-all;
 
 				@media (max-width: 900px) {
 					font-size: var(--tiny);
