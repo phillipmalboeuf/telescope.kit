@@ -66,6 +66,11 @@
     padding: calc(var(--gutter) / 2);
     // background-color: white;
 
+    @supports (mix-blend-mode: exclusion) {
+      color: white;
+      mix-blend-mode: exclusion;
+    }
+
     display: flex;
     // justify-content: space-between;
 
@@ -77,6 +82,7 @@
       position: relative;
       z-index: 2;
       flex: 1;
+
       :global(div) {
         display: inline-block;
         text-align: left;
@@ -98,9 +104,14 @@
       flex: 2;
       display: flex;
       // justify-content: space-between;
+      
 
       a {
         flex: 1;
+      }
+
+      h4 {
+        
       }
 
       a:hover,
@@ -135,6 +146,9 @@
     }
 
     &.visible {
+      color: white;
+      mix-blend-mode: unset;
+
       @media (max-width: 900px) {
         > a,
         > button {
