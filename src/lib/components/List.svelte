@@ -25,6 +25,11 @@
 </script>
 
 <style lang="scss">
+  .empty {
+    text-align: center;
+    min-height: 100vh;
+  }
+
   ol {
     overflow-x: hidden;
     list-style: none;
@@ -207,6 +212,6 @@
     {/if}
   </li>
   {:else}
-  <h6><em>{$page.data.locale === 'fr' ? 'Aucun résultats.' : 'No results.'}</em></h6>
+  <h6 class="empty"><em>{$page.data.locale === 'fr' ? 'Aucun résultats.' : 'No results.'}</em></h6>
 	{/each}
 </ol>
