@@ -88,7 +88,7 @@
 
       a.film figure :global(video),
       a.film figure :global(img) {
-        width: calc(66.6vw - (var(--gutter) / 2));
+        width: calc(66.6vw - (var(--gutter) / 1.5));
         height: calc(66.6vw * 9 / 14);
 
         @media (max-width: 900px) {
