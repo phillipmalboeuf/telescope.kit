@@ -24,11 +24,15 @@
 	<nav><h1>{data.film.fields.title} • <Tags tags={data.film.fields.tags} path="data.films" /></h1></nav>
 
 	<aside>
+		{#if data.film.fields.crew}
 		<Document body={data.film.fields.crew} />
+		{/if}
 	</aside>
 
 	<article>
+		{#if data.film.fields.description}
 		<Document body={data.film.fields.description} />
+		{/if}
 
 		{#if data.film.fields.creditList}<p><Credits credits={data.film.fields.creditList} /></p>{/if}
 	</article>
