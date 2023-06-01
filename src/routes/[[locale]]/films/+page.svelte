@@ -40,7 +40,7 @@
 
 
 
-<List items={data.films.items} query={data.currentDirector && `?director=${data.currentDirector}`} />
+<List items={data.films} query={data.currentDirector && `?director=${data.currentDirector}`} />
 <Pagination path="films" currentPage={data.currentPage} numberOfPages={data.numberOfPages} />
 
 <style lang="scss">

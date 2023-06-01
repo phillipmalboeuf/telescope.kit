@@ -34,7 +34,7 @@
 		document.documentElement.classList.remove('dark')
 	}}>
 		{#each [...directors] as director}
-		{@const film = data.films.items.find(film => film.fields.director?.fields.tagIdentifier === director.fields.tagIdentifier)}
+		{@const film = data.films.find(film => film.fields.director?.fields.tagIdentifier === director.fields.tagIdentifier)}
 		<a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}/films?director={director.fields.tagIdentifier}" class:active={active && active.fields.identifier === film?.fields.identifier} on:mouseenter={() => {
 			active = film
 			document.documentElement.classList.add('dark')
