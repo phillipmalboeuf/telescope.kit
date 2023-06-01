@@ -95,6 +95,10 @@
 			// background-color: black;
 			color: white;
 		}
+
+		@media (max-width: 900px) {
+			padding: calc(var(--gutter) * 3.5) 0 calc(var(--gutter) * 1.5);
+		}
 	}
 
 		figure {
