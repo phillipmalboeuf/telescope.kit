@@ -177,7 +177,7 @@
 <!-- <svelte:window bind:scrollY={scrollY} bind:innerHeight={windowHeight} /> -->
 
 <ol class:grid>
-	{#each items as item, index (item.sys.id)}
+	{#each items.filter(item => item?.fields) as item, index (item.sys.id)}
   
 	<li in:fly|local="{{ x: 200 * (index % 2 ? 1 : -1), delay: 666, duration: 666 }}" out:fly|local="{{ x: 200 * (index % 2 ? 1 : -1), duration: 666 }}" class:loose={item.type === 'looseText'}>
     {#if item.type === 'looseText'}
@@ -190,7 +190,7 @@
         {#if item.type === 'film'}
         {#if !$page.data.isMobile && item.fields.teaser}
         <ListVideo src={item.fields.animationList || item.fields.teaser}
-          poster={`${item.fields.poster.fields.file.url}?w=900`} />
+          poster={item.fields.poster && `${item.fields.poster.fields.file.url}?w=900`} />
         {:else}
         <Picture media={item.fields.poster} />
         {/if}
