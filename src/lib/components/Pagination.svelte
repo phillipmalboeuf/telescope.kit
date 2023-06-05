@@ -2,14 +2,15 @@
   export let path
 	export let currentPage
   export let numberOfPages
+	export let query = undefined
 
 	import { page } from '$app/stores'
 
-	function search(query) {
-		return Object.entries(query).filter(([name, value]) => name !== 'p').reduce((s, [name, value]) => {
-			return s + '&' + name + '=' + value
-		}, '')
-	}
+	// function search(query) {
+	// 	return Object.entries(query).filter(([name, value]) => name !== 'p').reduce((s, [name, value]) => {
+	// 		return s + '&' + name + '=' + value
+	// 	}, '')
+	// }
 </script>
 
 <style>
@@ -56,14 +57,14 @@
 
 <nav>
 	{#if currentPage > 0}
-	<a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?p={currentPage - 1}{search($page.url.searchParams)}">{$page.data.locale === 'fr' ? '« Précédent' : '« Prev'}</a>
+	<a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?p={currentPage - 1}{query ? `&${query}` : ''}">{$page.data.locale === 'fr' ? '« Précédent' : '« Prev'}</a>
 	{/if}
 
 	{#each Array.from(Array(numberOfPages)) as _, index}
-  <a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?p={index}{search($page.url.searchParams)}" class:current={index === currentPage}>{index+1}</a>
+  <a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?p={index}{query ? `&${query}` : ''}" class:current={index === currentPage}>{index+1}</a>
   {/each}
 
 	{#if currentPage < numberOfPages - 1}
-	<a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?p={currentPage + 1}{search($page.url.searchParams)}">{$page.data.locale === 'fr' ? 'Suivant »' : 'Next »'}</a>
+	<a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?p={currentPage + 1}{query ? `&${query}` : ''}">{$page.data.locale === 'fr' ? 'Suivant »' : 'Next »'}</a>
 	{/if}
 </nav>
