@@ -102,7 +102,7 @@
 	}
 
 		figure {
-			position: absolute;
+			position: fixed;
 			top: 0;
 			left: calc(var(--gutter) * -1);
 			width: calc(100% + (var(--gutter) * 2));
@@ -119,9 +119,20 @@
 		}
 
 		nav {
-			position: relative;
+			position: fixed;
 			z-index: 2;
-			height: 100%;
+			top: 0;
+			width: calc(100% - (var(--gutter) * 1));
+			height: calc(100% - (var(--gutter) * 1));
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			pointer-events: none;
+
+			// @media (max-width: 900px) {
+			// 	width: calc(100% - (var(--gutter) * 1));
+			// }
 			
 			h4 {
 				margin-bottom: 0;
@@ -145,7 +156,8 @@
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				margin-bottom: var(--tiny);
+				margin-bottom: calc(var(--tiny) / 2);
+				pointer-events: auto;
 
 				button {
 					display: none;

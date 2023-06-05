@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-import Hover from './Hover.svelte'
+  import { page } from '$app/stores'
+  import Hover from './Hover.svelte'
 
   const links = [
     { label: 'Instagram', path: 'https://www.instagram.com/telescope_films/' },
@@ -32,6 +32,15 @@ import Hover from './Hover.svelte'
   h1 {
 		margin-top: calc(var(--gutter) * 1);
 		text-align: center;
+
+    :global(.dark) & {
+      color: white;
+    }
+
+    @supports (mix-blend-mode: exclusion) {
+      color: white;
+      mix-blend-mode: exclusion;
+    }
 	}
 
 	@media (max-width: 900px) {
@@ -42,7 +51,17 @@ import Hover from './Hover.svelte'
   
   footer {
     padding: calc(var(--gutter) / 2);
-    background-color: white;
+    // background-color: white;
+
+    :global(.dark) & {
+      color: white;
+      // background-color: transparent;
+    }
+
+    @supports (mix-blend-mode: exclusion) {
+      color: white;
+      mix-blend-mode: exclusion;
+    }
 
     display: flex;
 
