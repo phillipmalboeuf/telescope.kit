@@ -156,7 +156,7 @@
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				margin-bottom: calc(var(--tiny) / 2);
+				padding-bottom: calc(var(--tiny) / 2);
 				pointer-events: auto;
 
 				button {
