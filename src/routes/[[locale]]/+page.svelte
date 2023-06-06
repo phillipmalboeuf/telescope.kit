@@ -29,7 +29,7 @@
 </script>
 
 <section class:active>
-	<nav on:pointerleave={() => {
+	<nav on:mouseleave={() => {
 		active = undefined
 		document.documentElement.classList.remove('dark')
 	}}>
