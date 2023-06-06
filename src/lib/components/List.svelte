@@ -61,6 +61,7 @@
     }
 
       figure {
+        cursor: pointer;
         position: relative;
         margin: 0 0 calc(var(--gutter) / 1.5);
       }
@@ -106,6 +107,7 @@
           /* padding: 0 calc(var(--gutter) / 2) var(--gutter); */
           /* transform: translateX(-100%); */
           /* opacity: 0; */
+          opacity: 0.4;
 
           width: 100%;
           display: flex;
@@ -148,15 +150,15 @@
           /* width: calc(52.5vw - (var(--gutter) * 1.5)); */
         }
 
-        a:hover :global(video:hover),
-        a:hover :global(img:hover) {
-          width: calc(52.5vw - (var(--gutter) * 1.5));
-          cursor: pointer;
+        // a:hover :global(video:hover),
+        // a:hover :global(img:hover) {
+        //   width: calc(52.5vw - (var(--gutter) * 1.5));
+        //   cursor: pointer;
 
-          @media (max-width: 900px) {
-            width: 100%;
-          }
-        }
+        //   @media (max-width: 900px) {
+        //     width: 100%;
+        //   }
+        // }
 
         a:hover :global(h6:hover),
         a:hover :global(h4:hover) {
@@ -168,14 +170,14 @@
           font-variation-settings: "wdth" 235;
         }
 
-        a.film:hover figure :global(video:hover),
-        a.film:hover figure :global(img:hover) {
-          width: 70vw;
+        // a.film:hover figure :global(video:hover),
+        // a.film:hover figure :global(img:hover) {
+        //   width: 70vw;
 
-          @media (max-width: 900px) {
-            width: 100%;
-          }
-        }
+        //   @media (max-width: 900px) {
+        //     width: 100%;
+        //   }
+        // }
       }
 </style>
 

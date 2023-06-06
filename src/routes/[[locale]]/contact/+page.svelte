@@ -35,7 +35,7 @@
 	<nav>
 		{#each people as person}
 		<article>
-			<h5><strong>{person.fields.name}</strong></h5>
+			<h5>{person.fields.name}</h5>
 			<h6>{person.fields.position}</h6>
 			{#if person.fields.phone}<a href={`tel:${person.fields.phone}`}><h6>{person.fields.phone}</h6></a>{/if}
 			{#if person.fields.email}<a href={`mailto:${person.fields.email}`}><h6>{@html person.fields.email.replace('@', '<div></div>@')}</h6></a>{/if}
@@ -47,7 +47,7 @@
 	<nav>
 		{#each points as point}
 		<a href={`${point.fields.link}`} rel="external">
-			<h5><strong>{point.fields.title}</strong></h5>
+			<h5>{point.fields.title}</h5>
 			<h6>{point.fields.linkLabel}</h6>
 		</a>
 		{/each}

@@ -52,6 +52,16 @@
   footer {
     display: flex;
 
+    a {
+      opacity: 0.4;
+      transition: opacity 333ms;
+
+      &:hover,
+      &:focus {
+        opacity: 1;
+      }
+    }
+
     > a {
       flex: 1;
     }

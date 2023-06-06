@@ -21,6 +21,7 @@
 </svelte:head>
 
 <nav>
+  <div>
   {#each directors as director}
   {#if data.currentDirector === director.fields.tagIdentifier}
   <a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}/films" class:current={true} rel=prefetch>
@@ -33,7 +34,7 @@
   {/if}
   {/each}
 
-  <br><br><br><br>
+  </div>
 
   <Filters path="films" tags={data.filmTags} currentTag={data.currentTag} currentDirector={data.currentDirector} />
 </nav>
@@ -46,17 +47,19 @@
 <style lang="scss">
   nav {
     position: fixed;
-    height: var(--height);
+    height: calc(var(--height) - (var(--gutter) * 3.5));
     width: 28vw;
-    top: 0;
+    top: calc(var(--gutter) * 2.5);
     left: calc(var(--gutter) / 2);
+    overflow-y: auto;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    gap: var(--gutter);
     
     @media (max-width: 900px) {
-      position: relative;
+      position: static;
       height: auto;
       width: 100%;
       left: 0;

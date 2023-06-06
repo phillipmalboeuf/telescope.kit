@@ -308,7 +308,7 @@
   </figcaption>
   <figcaption class="title"><slot name="title" /></figcaption>
 
-  <video src={srcs ? srcs[resolution].fields.file.url.replace('//videos.ctfassets.net', '//telescopefilms.b-cdn.net') : undefined} autoplay disableRemotePlayback
+  <video src={srcs ? srcs[resolution].fields?.file?.url?.replace('//videos.ctfassets.net', '//telescopefilms.b-cdn.net') : undefined} autoplay disableRemotePlayback
     bind:currentTime={time}
     bind:duration
     bind:buffered

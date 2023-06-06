@@ -45,6 +45,10 @@
         opacity: 1;
       }
 
+			nav a h6 {
+				margin-bottom: 0;
+			}
+
         nav a:hover h6,
         nav a:focus h6,
         nav > span:hover h6 {
