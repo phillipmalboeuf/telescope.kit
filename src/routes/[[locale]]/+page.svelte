@@ -28,6 +28,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Telescope</title>
+</svelte:head>
+
 <section class:active>
 	<nav on:mouseleave={() => {
 		active = undefined
