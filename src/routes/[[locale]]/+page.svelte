@@ -37,6 +37,8 @@
 		active = undefined
 		document.documentElement.classList.remove('dark')
 	}}>
+	<div />
+	<div>
 		{#each [...directors] as director}
 		{@const film = data.films.find(film => film.fields.director?.fields.tagIdentifier === director.fields.tagIdentifier)}
 		<a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}/films?director={director.fields.tagIdentifier}" class:active={active && active.fields.identifier === film?.fields.identifier} on:mouseenter={() => {
@@ -64,6 +66,8 @@
 			</button>
 		</a>
 		{/each}
+	</div>
+	<div />
 	</nav>
 
 	{#if active}
@@ -125,14 +129,13 @@
 		nav {
 			position: fixed;
 			z-index: 2;
-			top: 0;
+			top: calc(var(--gutter) * 2);
 			width: calc(100% - (var(--gutter) * 1));
-			height: calc(100% - (var(--gutter) * 1));
+			height: calc(100% - (var(--gutter) * 3));
+			overflow-y: auto;
 			display: flex;
 			flex-direction: column;
-			justify-content: center;
-
-			pointer-events: none;
+			justify-content: space-between;
 
 			// @media (max-width: 900px) {
 			// 	width: calc(100% - (var(--gutter) * 1));
@@ -161,7 +164,6 @@
 				justify-content: space-between;
 				align-items: center;
 				padding-bottom: calc(var(--tiny) / 2);
-				pointer-events: auto;
 
 				button {
 					display: none;
