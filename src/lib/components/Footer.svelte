@@ -47,6 +47,14 @@
     padding: calc(var(--gutter) / 2);
     margin-top: calc(var(--gutter) * 1);
     background-color: white;
+
+    :global(.dark) & {
+      @supports (mix-blend-mode: exclusion) {
+        background-color: transparent;
+        color: white;
+        mix-blend-mode: exclusion;
+      }
+    }
   }
   
   footer {
