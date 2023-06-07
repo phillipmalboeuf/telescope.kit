@@ -20,12 +20,6 @@
 	$: {
 		directors = data.page.fields.content.filter(c => c.sys.contentType.sys.id === 'collaborator') as Entry<Collaborator>[]
 	}
-
-	$: {
-		if (browser && $page.route) {
-			document.documentElement.classList.remove('dark')
-		}
-	}
 </script>
 
 <svelte:head>

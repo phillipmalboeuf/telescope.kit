@@ -13,6 +13,10 @@
 				page_path: $page.url.pathname,
 			})
 		}
+
+    if (browser && $page.url) {
+			document.documentElement.classList.remove('dark')
+		}
 	}
 </script>
 
