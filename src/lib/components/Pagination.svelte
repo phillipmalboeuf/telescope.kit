@@ -86,6 +86,7 @@
 	<a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?p={currentPage - 1}{query ? `&${query}` : ''}">{$page.data.locale === 'fr' ? '« Précédent' : '« Prev'}</a>
 	{/if}
 
+	{#if items.length > 1}
 	{#each items as item}
 	{#if item === '...'}
 	<span>{item}</span>
@@ -93,6 +94,7 @@
   <a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?p={item-1}{query ? `&${query}` : ''}" class:current={item-1 === currentPage}>{item}</a>
 	{/if}
   {/each}
+	{/if}
 
 	{#if currentPage < numberOfPages - 1}
 	<a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?p={currentPage + 1}{query ? `&${query}` : ''}">{$page.data.locale === 'fr' ? 'Suivant »' : 'Next »'}</a>

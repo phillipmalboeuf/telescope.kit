@@ -29,7 +29,7 @@
 	nav {
 		display: flex;
 		flex-wrap: wrap;
-    gap: calc(var(--rythm) / 2);
+    gap: calc(var(--rythm) / 3);
 		/* margin: calc(var(--rythm) * -2.5) 0 calc(var(--rythm) * 1) calc(var(--rythm) / -2); */
 	}
 
