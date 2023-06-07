@@ -18,9 +18,12 @@
     <a href={`${$page.data.locale === 'fr' ? '/' : `/${$page.data.locale}`}`}><small>© 2023 Télescope</small></a>
 
     <nav>
+      <div>
       {#each links as link}
       <a href={`${$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}${link.path}`} rel="external"><small>{link.label}</small></a>
       {/each}
+      </div>
+
       {#if $page.data.locale === 'fr'}
       <a href="/en"><small>English</small></a>
       {:else}
@@ -77,10 +80,25 @@
     > nav {
       flex: 2;
       display: flex;
-      // justify-content: space-between;
+      justify-content: space-between;
 
-      a {
+      > div {
+        flex: 3;
+        display: flex;
+        gap: var(--gutter);
+
+        @media (max-width: 900px) {
+          justify-content: end;
+        }
+      }
+
+      > a {
         flex: 1;
+        text-align: right;
+
+        @media (max-width: 900px) {
+          display: none;
+        }
       }
     }
   }

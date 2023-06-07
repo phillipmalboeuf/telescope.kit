@@ -108,10 +108,10 @@
           /* transform: translateX(-100%); */
           /* opacity: 0; */
           opacity: 0.4;
-
+          text-align: left;
           width: 100%;
           display: flex;
-          justify-content: space-between;
+          // justify-content: space-between;
 
           transition: transform 420ms, opacity 420ms;
           will-change: transform;
@@ -124,9 +124,22 @@
           figcaption h6 {
             /* transform: translateX(-25%); */
 
-            max-width: 400px;
+            // max-width: 400px;
             transition: transform 420ms, font-variation-settings 333ms;
             will-change: transform;
+
+            &:first-child {
+              flex: 3;
+            }
+
+            &:nth-child(2) {
+              flex: 1;
+            }
+
+            &:nth-child(3) {
+              flex: 1;
+              text-align: right;
+            }
 
             @media (max-width: 900px) {
               &:nth-child(2) {

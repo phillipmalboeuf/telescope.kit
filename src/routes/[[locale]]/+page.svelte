@@ -161,7 +161,7 @@
 
 			a {
 				display: flex;
-				justify-content: space-between;
+				// justify-content: space-between;
 				align-items: center;
 				padding-bottom: calc(var(--tiny) / 2);
 
@@ -173,6 +173,20 @@
 					@media (max-width: 900px) {
 						display: inline-block;
 					}
+				}
+
+				h4:first-child {
+					flex: 2;
+				}
+
+				h4:nth-child(2) {
+					flex: 3;
+				}
+
+				h4:nth-child(3) {
+					flex: 1;
+					justify-content: end;
+					align-items: center;
 				}
 
 				&:hover,

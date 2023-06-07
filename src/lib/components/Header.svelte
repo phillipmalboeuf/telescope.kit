@@ -64,6 +64,7 @@
     width: 100vw;
     z-index: 10;
     padding: calc(var(--gutter) / 2);
+    pointer-events: none;
     // background-color: white;
 
     @supports (mix-blend-mode: exclusion) {
@@ -76,6 +77,10 @@
 
     :global(.dark) & {
       color: white;
+    }
+
+    a, button {
+      pointer-events: auto;
     }
 
     > a {
@@ -108,6 +113,10 @@
 
       a {
         flex: 1;
+
+        &:last-child {
+          text-align: right;
+        }
       }
 
       h4 {

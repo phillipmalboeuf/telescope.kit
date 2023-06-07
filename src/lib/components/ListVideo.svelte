@@ -27,4 +27,4 @@
   }
 </style>
 
-<video src={src.fields?.file?.url?.replace('//videos.ctfassets.net', '//telescopefilms.b-cdn.net')} loop muted autoplay preload="none" disableRemotePlayback poster={poster} />
+<video src={src.fields.file.url.replace('//videos.ctfassets.net', '//telescopefilms.b-cdn.net')} loop muted autoplay preload="none" disableRemotePlayback poster={poster} />
