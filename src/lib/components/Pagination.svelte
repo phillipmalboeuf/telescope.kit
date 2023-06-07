@@ -1,10 +1,36 @@
-<script>
-  export let path
-	export let currentPage
-  export let numberOfPages
-	export let query = undefined
+<script lang="ts">
+  export let path: string
+	export let currentPage: number
+  export let numberOfPages: number
+	export let query: string = undefined
 
 	import { page } from '$app/stores'
+
+	function paginate({current, max}: {current: number, max: number}) {
+		if (!current || !max) return null
+
+		let prev = current === 1 ? null : current - 1,
+				next = current === max ? null : current + 1,
+				items: (number | string)[] = [1]
+
+		if (current === 1 && max === 1) return {current, prev, next, items}
+		if (current > 4) items.push('…')
+
+		let r = 2, r1 = current - r, r2 = current + r
+
+		for (let i = r1 > 2 ? r1 : 2; i <= Math.min(max, r2); i++) items.push(i)
+
+		if (r2 + 1 < max) items.push('…')
+		if (r2 < max) items.push(max)
+
+		return {current, prev, next, items}
+	}
+
+	let items: (number | string)[] = []
+
+	$: {
+		items = paginate({ current: currentPage+1, max: numberOfPages })?.items
+	}
 
 	// function search(query) {
 	// 	return Object.entries(query).filter(([name, value]) => name !== 'p').reduce((s, [name, value]) => {
@@ -60,8 +86,12 @@
 	<a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?p={currentPage - 1}{query ? `&${query}` : ''}">{$page.data.locale === 'fr' ? '« Précédent' : '« Prev'}</a>
 	{/if}
 
-	{#each Array.from(Array(numberOfPages)) as _, index}
-  <a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?p={index}{query ? `&${query}` : ''}" class:current={index === currentPage}>{index+1}</a>
+	{#each items as item}
+	{#if item === '...'}
+	<span>{item}</span>
+	{:else}
+  <a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?p={item-1}{query ? `&${query}` : ''}" class:current={item-1 === currentPage}>{item}</a>
+	{/if}
   {/each}
 
 	{#if currentPage < numberOfPages - 1}
