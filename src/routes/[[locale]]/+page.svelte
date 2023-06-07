@@ -54,7 +54,7 @@
 			<h4>{director.fields.name}</h4>
 			{#if film}
 			<h4 class="wide">{film.fields.title}</h4>
-			<h4><Tags tags={film.fields.tags} /></h4>
+			<h4>{#if film.fields.tags}<Tags tags={[film.fields.tags[0]]} />{/if}</h4>
 			{/if}
 			<button>
 				<svg xmlns="http://www.w3.org/2000/svg" width="46.5" height="18.5" viewBox="0 0 46.5 18.5">
