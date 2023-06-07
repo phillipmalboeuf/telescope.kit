@@ -207,7 +207,7 @@
 <ol class:grid>
 	{#each items.filter(item => item?.fields) as item, index (item.sys.id)}
   
-	<li in:fade|local="{{ duration: 666 }}" out:fade|local="{{ duration: 666 }}" class:loose={item.type === 'looseText'}>
+	<li in:fade|local="{{ delay: 666, duration: 666 }}" out:fade|local="{{ duration: 666 }}" class:loose={item.type === 'looseText'}>
     {#if item.type === 'looseText'}
     
     <Document body={item.fields.body} />
