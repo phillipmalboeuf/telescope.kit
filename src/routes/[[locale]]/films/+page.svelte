@@ -47,7 +47,7 @@
 <style lang="scss">
   nav {
     position: fixed;
-    height: calc(var(--height) - (var(--gutter) * 3.5));
+    height: calc(var(--height) - (var(--gutter) * 3));
     width: 28vw;
     top: calc(var(--gutter) * 2.5);
     left: calc(var(--gutter) / 2);
