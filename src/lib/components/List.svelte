@@ -124,9 +124,9 @@
           figcaption h6 {
             /* transform: translateX(-25%); */
 
-            // max-width: 400px;
-            transition: transform 420ms, font-variation-settings 333ms;
-            will-change: transform;
+            // max-width: 500px;
+            // transition: transform 420ms, font-variation-settings 333ms;
+            // will-change: transform;
 
             &:first-child {
               flex: 3;
@@ -134,6 +134,10 @@
 
             &:nth-child(2) {
               flex: 1;
+
+              &:last-child {
+                text-align: right;
+              }
             }
 
             &:nth-child(3) {
@@ -146,6 +150,10 @@
                 display: none;
               }
             }
+          }
+
+          a:not(.film) figcaption h6 {
+            max-width: 400px;
           }
 
       @media (hover: hover) {
