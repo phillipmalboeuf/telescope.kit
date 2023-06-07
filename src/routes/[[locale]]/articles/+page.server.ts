@@ -2,7 +2,7 @@
 
 import { type Article, contentful } from '$lib/clients/contentful'
 
-const limit = 6
+const limit = 12
 
 export const load = (async ({ locals, url, params }) => {
   const currentPage = url.searchParams.has("p") ? parseInt(url.searchParams.get("p")) : 0
