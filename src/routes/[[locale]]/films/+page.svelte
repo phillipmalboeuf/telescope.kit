@@ -51,6 +51,7 @@
     width: 28vw;
     top: calc(var(--gutter) * 2.5);
     left: calc(var(--gutter) / 2);
+    
     overflow-y: auto;
 
     display: flex;
