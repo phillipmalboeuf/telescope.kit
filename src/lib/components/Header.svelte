@@ -10,12 +10,12 @@
   $: {
     links = $page.data.locale === 'fr' ? [
       { label: 'Projets', path: '/films' },
-      { label: 'Nouvelles', path: '/articles' },
+      { label: 'Films', path: '/articles' },
       { label: 'À propos', path: '/about' },
       { label: 'Contact', path: '/contact' },
     ] : [
       { label: 'Projects', path: '/films' },
-      { label: 'News', path: '/articles' },
+      { label: 'Films', path: '/articles' },
       { label: 'About', path: '/about' },
       { label: 'Contact', path: '/contact' },
     ]
