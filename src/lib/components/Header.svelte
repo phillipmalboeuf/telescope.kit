@@ -9,13 +9,13 @@
   
   $: {
     links = $page.data.locale === 'fr' ? [
-      { label: 'Projets', path: '/films' },
-      { label: 'Films', path: '/articles' },
+      { label: 'Projets', path: '/projets' },
+      { label: 'Films', path: '/films' },
       { label: 'À propos', path: '/about' },
       { label: 'Contact', path: '/contact' },
     ] : [
-      { label: 'Projects', path: '/films' },
-      { label: 'Films', path: '/articles' },
+      { label: 'Projects', path: '/projets' },
+      { label: 'Films', path: '/films' },
       { label: 'About', path: '/about' },
       { label: 'Contact', path: '/contact' },
     ]

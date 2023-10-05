@@ -1,13 +1,13 @@
 // import { error } from '@sveltejs/kit'
 
-import { type Film, contentful } from '$lib/clients/contentful'
+import { type Article, contentful } from '$lib/clients/contentful'
 
 export const load = (async ({ locals, url, params }) => {
-  const [films] = await Promise.all([
-    contentful.getEntries<Film>({ content_type: 'film', 'fields.identifier': params.identifier, limit: 1, locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
+  const [articles] = await Promise.all([
+    contentful.getEntries<Article>({ content_type: 'article', 'fields.identifier': params.identifier, limit: 1, locale: { 'en': 'en-US' }[params.locale] || 'fr-CA' }),
   ])
 
   return {
-    film: films.items[0]
+    article: articles.items[0]
   }
 })

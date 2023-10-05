@@ -213,7 +213,10 @@
     <Document body={item.fields.body} />
 
     {:else}
-    <a class={item.type} rel='prefetch' href={`${$page.data.locale === 'fr' ? `/${item.type}s/${item.fields.identifier}${query ? query : ''}` : `/${$page.data.locale}/${item.type}s/${item.fields.identifier}${query ? query : ''}`}`}>
+    <a class={item.type} rel='prefetch' href={`${$page.data.locale === 'fr' ? `/${{
+      'article': 'film',
+      'film': 'projet'
+    }[item.type] || item.type}s/${item.fields.identifier}${query ? query : ''}` : `/${$page.data.locale}/${item.type}s/${item.fields.identifier}${query ? query : ''}`}`}>
       <figure>
         {#if item.type === 'film'}
         {#if !$page.data.isMobile && item.fields.teaser}
