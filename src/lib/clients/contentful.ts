@@ -141,3 +141,14 @@ export interface Page {
     content?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<AboutPiece | Article | Collaborator | ContactPerson | ContactPoint | Film | LooseText>>;
   }
 }
+
+export interface Popup {
+  contentTypeId: 'popup'
+  fields: {
+    title: EntryFieldTypes.Symbol
+    poster: EntryFieldTypes.AssetLink
+    body: EntryFieldTypes.RichText
+    linkLabel: EntryFieldTypes.Symbol
+    link: EntryFieldTypes.Symbol
+  }
+}

@@ -3,6 +3,7 @@
 
   import Header from '$lib/components/Header.svelte'
   import Footer from '$lib/components/Footer.svelte'
+  import Popup from '$lib/components/Popup.svelte'
 
   import { page } from '$app/stores'
   import { browser } from '$app/environment'
@@ -20,6 +21,7 @@
 	}
 </script>
 
+{#if !$page.data.popup}<Popup />{/if}
 {#if !$page.data.film}<Header />{/if}
 
 <main>
