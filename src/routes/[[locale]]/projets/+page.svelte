@@ -36,13 +36,13 @@
 
   </div>
 
-  <Filters path="films" tags={data.filmTags} currentTag={data.currentTag} currentDirector={data.currentDirector} />
+  <Filters path="projets" tags={data.filmTags} currentTag={data.currentTag} currentDirector={data.currentDirector} />
 </nav>
 
 
 
 <List items={data.films} query={data.currentDirector && `?director=${data.currentDirector}`} />
-<Pagination path="films" currentPage={data.currentPage} numberOfPages={data.numberOfPages} query={data.currentDirector && `director=${data.currentDirector}`} />
+<Pagination path="projets" currentPage={data.currentPage} numberOfPages={data.numberOfPages} query={data.currentDirector && `director=${data.currentDirector}`} />
 
 <style lang="scss">
   nav {

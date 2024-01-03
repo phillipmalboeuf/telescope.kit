@@ -86,7 +86,7 @@
 	<a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}{path}?p={currentPage - 1}{query ? `&${query}` : ''}">{$page.data.locale === 'fr' ? '« Précédent' : '« Prev'}</a>
 	{/if}
 
-	{#if items.length > 1}
+	{#if items?.length > 1}
 	{#each items as item}
 	{#if item === '...'}
 	<span>{item}</span>
