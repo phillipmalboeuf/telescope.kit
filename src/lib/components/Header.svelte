@@ -105,9 +105,9 @@
     {/each}
     <small>
       {#if $page.data.locale === 'fr'}
-      <a href="/en"><small>English</small></a>
+      <a href="/en">English</a>
       {:else}
-      <a href="/"><small>Français</small></a>
+      <a href="/">Français</a>
       {/if}
     </small>
     <div><button class="button--blur" on:click={()=> {
@@ -302,7 +302,7 @@
           font-size: $base;
           display: block;
           position: absolute;
-          bottom: $base * 0.5;
+          bottom: $base;
           right: 0;
         }
       }
@@ -311,6 +311,7 @@
         small {
           display: block;
           margin-top: auto;
+          margin-left: $base * 0.5;
         }
 
         nav {
