@@ -3,7 +3,11 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [sveltekit()],
-	...process.env.NODE_ENV !== 'development' && {ssr: {
-		noExternal: ['contentful']
-	}}
+	css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@use "src/lib/variables.scss" as *;',
+      },
+    },
+  },
 });

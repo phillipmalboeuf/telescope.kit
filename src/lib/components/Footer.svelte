@@ -1,103 +1,175 @@
 <script lang="ts">
-  import { page } from '$app/stores'
-  import Hover from './Hover.svelte'
+  import Logo from './Logo.svelte'
 
-  const links = [
-    { label: 'Instagram', path: 'https://www.instagram.com/telescope_films/' },
-    { label: 'Facebook', path: 'https://www.facebook.com/telescopefilms' },
-    { label: 'Vimeo', path: 'https://vimeo.com/telescopefilms' },
-  ]
+  import type { TypeNavigationSkeleton } from '$lib/clients/content_types'
+  import type { Entry } from 'contentful'
+  import { goto, preloadData, pushState } from '$app/navigation'
+
+  export let footer: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 </script>
 
-<section>
-  <h1>
-    <Hover texts={['TELESCOPE']} />
-  </h1>
+<footer>
+  <nav>
+    {#each footer?.fields.links as link, i}
+    <div>
+      <a href={link.fields.link} {...link.fields.external && { rel: "external", target: "_blank" }}>{link.fields.label}</a>
 
-  <footer>
-    <a href={`${$page.data.locale === 'fr' ? '/' : `/${$page.data.locale}`}`}><small>© 2023 Télescope</small></a>
+      {#if link.fields.subLinks}
+      <ul class="small">
+      {#each link.fields.subLinks as sublink}
+        <li>
+          <a href={sublink.fields.link} {...sublink.fields.external && { rel: "external", target: "_blank" }}
+            on:click={async (e) => {
+              if (sublink.fields.link !== '/contact' && sublink.fields.link !== '/pages/about') return;
+              if (e.metaKey) return;
 
-    <nav>
-      <div>
-      {#each links as link}
-      <a href={`${$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}${link.path}`} rel="external"><small>{link.label}</small></a>
+              e.preventDefault()
+              const { href } = e.currentTarget
+              const result = await preloadData(href)
+
+              if (result.type === 'loaded' && result.status === 200) {
+                pushState(href, { type: sublink.fields.link.includes('pages') ? 'page' : 'contact', open: result.data })
+              } else {
+                goto(href)
+              }
+            }}>{@html sublink.fields.label.replaceAll('\\n', '<br>')}</a>
+        </li>
       {/each}
-      </div>
-
-      {#if $page.data.locale === 'fr'}
-      <a href="/en"><small>English</small></a>
-      {:else}
-      <a href="/"><small>Français</small></a>
+      </ul>
       {/if}
-    </nav>
-  </footer>
-</section>
+
+      {#if i === footer.fields.links.length - 1}
+      <aside class="small">
+        <span>© 2023 Telescope</span>
+        <a href="http://caserne.com" target="_blank" rel="external">Web Design <strong>Caserne</strong></a>
+      </aside>
+      {/if}
+    </div>
+    {/each}
+  </nav>
+
+  <Logo />
+</footer>
 
 <style lang="scss">
-  h1 {
-		text-align: center;
-	}
-
-	@media (max-width: 900px) {
-    h1 {
-      font-size: 6.33vw;
-    }
-  }
-
-  section {
-    position: relative;
-    z-index: 22;
-    padding: calc(var(--gutter) / 2);
-    margin-top: calc(var(--gutter) * 1);
-    background-color: white;
-
-    :global(.dark) & {
-      @supports (mix-blend-mode: exclusion) {
-        background-color: transparent;
-        color: white;
-        mix-blend-mode: exclusion;
-      }
-    }
-  }
-  
   footer {
+    position: relative;
+    z-index: 999;
+    color: var(--foreground-inverse);
+    background-color: var(--background-inverse);
+    padding: $base;
+
     display: flex;
+    flex-direction: column;
+    gap: $base;
 
-    a {
-      opacity: 0.4;
-      transition: opacity 333ms;
+    @media (max-width: $mobile) {
+      padding: $mobile_base;
+      gap: $mobile_base * $mobile_scale * 2;
+    }
+    
+    > :global(svg) {
+      width: 100%;
+      height: auto;
 
-      &:hover,
-      &:focus {
-        opacity: 1;
+      @media (max-width: $mobile) {
+        order: -1;
       }
     }
 
-    > a {
-      flex: 1;
-    }
-
-    > nav {
-      flex: 2;
+    nav {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
 
-      > div {
-        flex: 3;
-        display: flex;
-        gap: var(--gutter);
-
-        @media (max-width: 900px) {
-          justify-content: end;
+      a {
+        transition: color 333ms;
+        
+        &:hover,
+        &:focus {
+          color: var(--foreground-inverse);
         }
       }
 
-      > a {
+      div {
         flex: 1;
-        text-align: right;
 
-        @media (max-width: 900px) {
-          display: none;
+        min-height: max(20vh, 20vw);
+        display: flex;
+        flex-direction: column;
+        margin-bottom: $gap;
+
+        &:not(:first-child) {
+          padding-left: $base;
+          border-left: 1px solid $grey;
+        }
+
+        &:last-child {
+          flex: 2;
+
+          @media (min-width: $mobile) {
+            ul {
+              display: flex;
+              flex-wrap: wrap;
+              align-items: flex-start;
+
+              li {
+                width: 50%;
+
+                &:nth-child(n + 3) {
+                  margin-left: 50%;
+                }
+              }
+            }
+          }
+        }
+
+        @media (max-width: $mobile) {
+          flex: none !important;
+          width: 50%;
+          margin-bottom: 0;
+
+          &:not(:first-child) {
+            padding-left: $mobile_base;
+          }
+
+          &:first-child {
+            display: none;
+          }
+
+          &:last-child {
+            width: 100%;
+          }
+        }
+
+        ul {
+          list-style: none;
+          margin: $gap 0;
+
+          color: $grey;
+        }
+
+        aside {
+          color: $grey;
+          display: flex;
+          justify-content: space-between;
+          margin-top: auto;
+
+          a {
+            strong {
+              font-weight: normal;
+              color: var(--foreground-inverse);
+              transition: color 333ms;
+            }
+
+            &:hover,
+            &:focus {
+              color: var(--foreground-inverse);
+
+              strong {
+                color: $grey;
+              }
+            }
+          }
         }
       }
     }

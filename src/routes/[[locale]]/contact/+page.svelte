@@ -1,121 +1,125 @@
 <script lang="ts">
-  import Document from '$lib/components/document/index.svelte'
-  import type { Entry } from 'contentful'
-	import type { ContactPerson, ContactPoint } from '$lib/clients/contentful'
+  import { pushState } from '$app/navigation'
+  import { page } from '$app/stores'
 
   import type { PageData } from './$types'
   export let data: PageData
-
-	let categories: { [category: string]: Entry<ContactPerson>[] }
-	let points = data.page.fields.content.filter(contact => contact.sys.contentType.sys.id === 'contactPoint') as Entry<ContactPoint>[]
-
-	$: {
-		categories = data.page.fields.content.filter(contact => contact.sys.contentType.sys.id === 'contactPerson').reduce((cs, contact) => {
-			if (cs[(contact as Entry<ContactPerson>).fields.category as string]) {
-				return {
-					...cs,
-					[(contact as Entry<ContactPerson>).fields.category as string]: [...cs[(contact as Entry<ContactPerson>).fields.category as string], contact]
-				}
-			}
-			return {
-				...cs,
-				[(contact as Entry<ContactPerson>).fields.category as string]: [contact]
-			}
-		}, {})
-	}
 </script>
 
 <svelte:head>
 	<title>{data.page.fields.title}</title>
+	<meta name="description" content={data.page.fields.description} />
 </svelte:head>
 
-<section>
-	{#each Object.entries(categories) as [category, people]}
-	<h2>{category}</h2>
-	<nav>
-		{#each people as person}
-		<article>
-			<h5>{person.fields.name}</h5>
-			<h6>{person.fields.position}</h6>
-			{#if person.fields.phone}<a href={`tel:${person.fields.phone}`}><h6>{person.fields.phone}</h6></a>{/if}
-			{#if person.fields.email}<a href={`mailto:${person.fields.email}`}><h6>{@html person.fields.email.replace('@', '<div></div>@')}</h6></a>{/if}
-		</article>
-		{/each}
-	</nav>
-	{/each}
+<main>
+  <nav>
+    <a href="{$page.data.locale === 'fr' ? '/' : `/${$page.data.locale}`}" class="inactive" on:click={async (e) => {
+      if (!$page.state.open) return;
+      if (e.metaKey) return;
 
-	<nav>
-		{#each points as point}
-		<a href={`${point.fields.link}`} rel="external">
-			<h5>{point.fields.title}</h5>
-			<h6>{point.fields.linkLabel}</h6>
-		</a>
-		{/each}
-	</nav>
-  <!-- <Document body={data.page.fields.body} /> -->
-</section>
+      e.preventDefault()
+      const { href } = e.currentTarget
+      pushState(href, {})
+    }}>Telescope</a>
+  </nav>
+  {#each data.page.fields.content as item}
+  {#if item.sys.contentType.sys.id === 'contactPoint'}
+  <nav>
+    <h4>{item.fields.title}</h4>
+
+    <a class="small" href={item.fields.link} rel="external" target="_blank">{item.fields.linkLabel}</a>
+
+    {#if item.fields.contacts?.length}
+    <ul>
+      {#each item.fields.contacts as person}
+      <li>
+        <h5 class="small">{person.fields.name}</h5>
+        <h6 class="small">{person.fields.position}</h6>
+        {#if person.fields.phone}<a href={`tel:${person.fields.phone}`}><h6 class="small">{person.fields.phone}</h6></a>{/if}
+        {#if person.fields.email}<a href={`mailto:${person.fields.email}`}><h6 class="small">{@html person.fields.email.replace('@', '<div></div>@')}</h6></a>{/if}
+      </li>
+      {/each}
+    </ul>
+    {/if}
+  </nav>
+  {/if}
+  {/each}
+
+  <nav>
+    <a class="inactive">Contact</a>
+  </nav>
+</main>
 
 <style lang="scss">
-	section {
-		
-	}
+  main {
+    position: relative;
+    z-index: 2000;
+    min-height: 100vh;
+    padding: $base 0;
 
-	h2,
-	nav {
-		margin-left: calc(33.3vw - (var(--gutter) / 3));
+    color: $white;
+		background-color: $black-light;
 
-		@media (max-width: 900px) {
-			margin-left: 0;
-		}
-	}
+    display: flex;
 
-	h2 {
-		margin-bottom: calc(var(--gutter) * 1);
-	}
+    @media (max-width: $mobile) {
+      padding: $mobile_base 0;
+      flex-direction: column;
+    }
 
-		nav {
-			display: flex;
-			flex-wrap: wrap;
-			gap: var(--gutter);
-			margin-bottom: calc(var(--gutter) * 1.5);
+    nav {
+      flex: 1;
+      padding: 0 $base;
 
-			&:last-child {
-				margin-top: calc(var(--gutter) * 4.5);
-			}
+      &:not(:first-child):not(:last-child) { border-left: 1px solid $grey; }
 
-			article {
-				width: calc(32% - (var(--gutter) / 2));
+      @media (max-width: $mobile) {
+        border-left: none !important;
+        padding: 0 $mobile_base;
 
-				@media (max-width: 900px) {
-					width: calc(50% - (var(--gutter) / 2));
-				}
-			}
-		}
+        &:not(:first-child):not(:last-child) {
+          border-top: 1px solid $grey;
+          padding-top: $mobile_base;
+        }
 
-			h5 {
-				margin-bottom: calc(var(--rythm) / 2.5);
+        > a,
+        > h4 {
+          font-size: $mobile_base * $mobile_scale * 1.15;
+        }
+      }
 
-				@media (max-width: 900px) {
-					font-size: var(--body);
-				}
-			}
+      a.inactive {
+        color: $grey;
+      }
 
-			h6 {
-				margin-bottom: 0;
-				opacity: 0.5;
-				transition: opacity 666ms;
+      h4 {
+        margin-bottom: 20vh;
 
-				:global(div) {
-					display: inline-block;
-				}
+        @media (max-width: $mobile) {
+          margin-bottom: $mobile_base * $mobile_scale;
+        }
+      }
 
-				@media (max-width: 900px) {
-					font-size: var(--tiny);
-				}
+      > a {
+        display: block;
+        margin-bottom: $gap * 2;
+      }
 
-				a:hover &,
-				a:focus & {
-					opacity: 1;
-				}
-			}
+      ul {
+        list-style: none;
+
+        li {
+          margin-bottom: $gap;
+
+          h5, h6 {
+            font-weight: normal;
+          }
+
+          h6 {
+            color: $grey;
+          }
+        }
+      }
+    }
+  }
 </style>

@@ -1,0 +1,253 @@
+:root {
+	--foreground: #{$black};
+	--background: #{$white};
+	--foreground-inverse: #{$white};
+	--background-inverse: #{$black};
+
+	font-family: $text;
+	color: var(--foreground);
+	background-color: var(--background);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+	cursor: none;
+}
+
+html {
+	&:not(:has(.directors)) {
+		scroll-snap-type: y mandatory;
+		scroll-behavior: smooth;
+	}
+
+	&:has(.directors) {
+		--background: #{$grey-light};
+		--foreground-inverse: #{$grey-light};
+	}
+
+	&:has(.films) {
+		--foreground: #{$white};
+		--background: #{$black};
+		--foreground-inverse: #{$black};
+		--background-inverse: #{$white};
+	}
+
+	&:has(.contact),
+	&:has(.pages) {
+		--foreground: #{$white};
+		--background: #{$black-light};
+		--foreground-inverse: #{$black-light};
+		--background-inverse: #{$white};
+	}
+}
+
+body {
+	font-size: $type;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: $mobile) {
+    font-size: $mobile_base;
+    // line-height: $mobile_scale;
+  }
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3 {
+	font-family: $display;
+	font-weight: 350;
+}
+
+h1,
+.h1 {
+	font-size: $base * $scale * 3;
+
+	@media (max-width: $mobile) {
+    font-size: $mobile_base * $mobile_scale * 2;
+  }
+}
+
+h2,
+.h2 {
+	font-size: $base * $scale * 2;
+
+	@media (max-width: $mobile) {
+    font-size: $mobile_base * $mobile_scale * 1;
+  }
+}
+
+h3,
+.h3 {
+	font-size: $base * $scale * 1;
+
+	@media (max-width: $mobile) {
+    font-size: $mobile_base * $mobile_scale * 1;
+  }
+}
+
+h4,
+.h4 {
+	font-size: $type;
+
+	@media (max-width: $mobile) {
+    font-size: $mobile_base;
+  }
+}
+
+h5,
+.h5 {
+	font-size: $type;
+
+	@media (max-width: $mobile) {
+    font-size: $mobile_base;
+  }
+}
+
+h6,
+.h6 {
+	font-size: $type;
+
+	@media (max-width: $mobile) {
+    font-size: $mobile_base;
+  }
+}
+
+p {
+	line-height: $scale;
+
+	@media (max-width: $mobile) {
+    line-height: $mobile_scale;
+  }
+}
+
+small,
+.small,
+.small p {
+	font-size: $base * $scale * 0.75;
+	line-height: $scale * 0.95;
+
+	@media (max-width: $mobile) {
+   font-size: $mobile_base * $mobile_scale * 0.75;
+  }
+}
+
+a {
+	color: currentColor;
+	text-decoration: none;
+
+	* {
+		pointer-events: none;
+	}
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+input,
+button {
+	font-size: inherit;
+	font-family: inherit;
+}
+
+button:focus:not(:focus-visible) {
+	outline: none;
+}
+
+button,
+.button {
+	pointer-events: auto !important;
+	// cursor: pointer;
+	display: inline-block;
+	padding: ($base * $scale * 0.125) ($base * $scale * 0.333);
+	border-radius: $base;
+	// background: transparent;
+	// border: 1px solid;
+	line-height: 1;
+	border: 1px solid transparent;
+	color: $black;
+	background-color: $grey-light;
+	// transition: background-color 333ms, color 333ms;
+
+	* {
+		pointer-events: none;
+	}
+
+	&.button--blur {
+		background-color: fade-out($grey-light, 0.5);
+		-webkit-backdrop-filter: blur(20px);
+		backdrop-filter: blur(20px);
+
+		&.button--blur--light {
+			color: $white;
+			background-color: fade-out($white, 0.85);
+			-webkit-backdrop-filter: blur(20px);
+			backdrop-filter: blur(20px);
+		}
+
+		&:hover,
+		&:focus {
+			color: $white;
+			background-color: $black;
+		}
+
+		&.button--blur--dark,
+		html:has(.films) header &  {
+			color: $white;
+			background-color: fade-out($grey-dark, 0.5);
+			-webkit-backdrop-filter: blur(20px);
+			backdrop-filter: blur(20px);
+
+			&:hover,
+			&:focus {
+				color: $black;
+				background-color: $white;
+			}
+		}
+	}
+}
+
+svg {
+	path {
+		fill: currentColor;
+	}
+
+	line {
+		stroke: currentColor;
+	} 
+}
+
+table {
+
+	td,
+	th {
+		white-space: pre-line;
+	}
+
+	th {
+		font-weight: normal;
+	}
+}
+
+.ta-center {
+	text-align: center;
+}
+
+.visually-hidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: auto;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	white-space: nowrap;
+}
+
+[id] {
+	scroll-margin-top: $base * 8;
+}

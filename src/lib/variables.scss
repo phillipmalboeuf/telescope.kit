@@ -1,0 +1,27 @@
+// SIZES
+$base: 18px;
+$scale: 1.22222222;
+$gap: $base * $scale;
+$type: $base - 1px;
+
+$max: 888px;
+
+$mobile: 888px;
+$mobile_base: 15px;
+$mobile_scale: 1.25;
+$mobile_gap: $mobile_base * $mobile_scale;
+
+// FONTS
+$display: 'Antique Legacy', sans-serif;
+$text: 'Antique Legacy', sans-serif;
+$alt: serif;
+$alt_display: serif;
+
+// COLORS
+$black: #0D0D0D;
+$black-light: #212121;
+$white: #FFFFFF;
+$grey: #717171;
+$grey-light: #E4E4E4;
+$grey-dark: #2F2F2F;
+$green: #32FE76;

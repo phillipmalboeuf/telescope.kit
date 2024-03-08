@@ -5,13 +5,11 @@ declare global {
 		// interface Error {}
 		// interface Locals {}
 		// interface PageData {}
+		interface PageState {
+			type?: 'film' | 'contact' | 'page'
+			open?: any
+		}
 		// interface Platform {}
-	}
-}
-
-declare global {
-	interface Window {
-		gtag?: Function
 	}
 }
 

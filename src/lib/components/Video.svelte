@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte'
 
-  import Gallery from './Gallery.svelte'
+  // import Gallery from './Gallery.svelte'
 
   import { page } from '$app/stores'
 
@@ -10,9 +10,9 @@
   export let grabs = undefined
 
   let time = 0
-	let duration
+	let duration: number
   let buffered
-	let paused
+	let paused: boolean = true
   let resolution = 0
   let showResolutions = false
   let volume = 1
@@ -40,6 +40,7 @@
 
   function toggleVolume() {
     volume = volume ? 0 : 1
+    localStorage.setItem("volume", volume ? "on" : "muted")
   }
 
   function selectResolution(index) {
@@ -50,7 +51,7 @@
     if (!fullscreen) {
       element.webkitRequestFullscreen()
     } else {
-      document.webkitCancelFullScreen()
+      element.webkitCancelFullScreen()
     }
   }
 
@@ -63,7 +64,7 @@
 	}
 
   function keydown(e) {
-    if (controls && e.key === ' ') {
+    if (e.key === ' ') {
       e.preventDefault()
       togglePaused()
     }
@@ -75,50 +76,107 @@
     inactive = false
   }
 
-  function grab(index) {
-    seek(grabs[index].fields.time)
-  }
+  // function grab(index) {
+  //   seek(grabs[index].fields.time)
+  // }
 
   onMount(() => {
     document.addEventListener('webkitfullscreenchange', toggleFullscreen, false)
+
+    volume = localStorage.getItem("volume") === "muted" ? 0 : 1
 
     return () => document.removeEventListener('webkitfullscreenchange', toggleFullscreen)
   })
 </script>
 
-<style>
-  video {
-    width: 100%;
-    background: black;
-  }
+<svelte:window on:keydown={keydown} />
 
+<figure class:inactive class:fullscreen on:mousemove={activate} bind:this={element}>
+  <!-- <figcaption class="breadcrumbs">
+    <h6><a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}/projets{$page.url.searchParams.has("director") ? `?director=${$page.url.searchParams.get("director")}` : ''}" rel=prefetch>{$page.data.locale === 'fr' ? 'Retour aux projets' : 'Back to Projects'}</a></h6>
+  </figcaption> -->
+  <figcaption class="title"><slot name="title" /></figcaption>
+
+  <video autoplay={$page.data.device === 'desktop'} disableRemotePlayback
+    src={srcs ? srcs[resolution].fields?.file?.url?.replace('//videos.ctfassets.net', '//telescopefilms.b-cdn.net') : undefined}
+    bind:currentTime={time}
+    bind:duration
+    bind:buffered
+    bind:paused
+    bind:volume
+    on:play={activate}
+    on:click={togglePaused} />
+  
+  <figcaption class="controls">
+    <button class="button--blur button--blur--dark" on:click={togglePaused}>{#if paused}Play{:else}Pause{/if}</button>
+    <button on:click={toggleVolume}>{#if volume}Sound Off{:else}Sound On{/if}</button>
+
+    <div>
+      {#if duration}
+      <label for="time" style="left: {time / duration * 100}%">{format(time)} / {format(duration)}</label>
+      <input id="time" name="time" type="range" value={time} min={0} step={0.01} max={duration}
+        on:input={e => seek(e.currentTarget.value)} />
+      {/if}
+    </div>
+    
+    <!-- <span>
+      <span on:mouseenter={() => showResolutions = true} on:mouseleave={() => showResolutions = false}>
+        {#if showResolutions}
+        {#each srcs as src, index}
+        <button class:faded={resolution !== index} on:click={() => selectResolution(index)}>{src.fields.description}</button>   
+        {/each}
+        {:else}
+        <button>{srcs[resolution].fields.description}</button>  
+        {/if}
+      </span>
+      <button on:click={requestToggleFullscreen}>{#if fullscreen}╻{:else}╹{/if}</button>
+      
+      <button on:click={scrollPastVideo} style="transform: rotate(90deg)">→</button>
+    </span> -->
+  </figcaption>
+
+  <!-- <figcaption class="seeker">
+    {#if buffered}
+    {#each buffered as { start, end }}
+    <div class="buffer" style="left: {start / duration * 100}%; width: {(end - start) / duration * 100}%;" />
+    {/each}
+    {/if}
+  </figcaption> -->
+</figure>
+
+<!-- {#if grabs}
+  <Gallery images={grabs.map(grab => ({ thumbnail: grab.fields.thumbnail }))} on:pick={event => grab(event.detail)} />
+{/if} -->
+
+
+
+<style lang="scss">
   video {
     width: 100vw;
-    height: var(--height);
-    margin: calc(var(--gutter) * -1) 0 0 calc(var(--gutter) * -1);
-  }
+    height: 100vh;
+    background: $black;
+    // object-fit: cover;
 
-  @media (max-width: 900px) {
-    video {
-      height: 42vh;
+    @media (max-width: $mobile) {
+      height: 50vh;
+      object-fit: cover;
     }
   }
 
   figure {
     position: relative;
-    margin: 0;
+    z-index: 2000;
 
     color: white;
-    cursor: default;
+    // cursor: default;
   }
 
   figure.inactive {
-    cursor: none;
+    // cursor: none;
   }
 
   figure.fullscreen video {
     height: var(--height);
-    margin: 0;
   }
 
   figcaption {
@@ -127,32 +185,19 @@
   }
 
   figure.inactive figcaption {
-    opacity: 0;
-  }
-
-  figcaption.breadcrumbs {
-    position: absolute;
-    top: calc(var(--gutter) * -0.5);
-    left: calc(var(--gutter) * -0.5);
-    z-index: 2;
-  }
-
-    figcaption.breadcrumbs a {
-      opacity: 0.5;
-      padding: calc(var(--gutter) / 4);
+    @media (min-width: $mobile) {
+      opacity: 0;
     }
-
-      figcaption.breadcrumbs a:hover {
-        opacity: 1;
-      }
+  }
 
   figcaption.title {
     position: absolute;
-    bottom: calc(var(--rythm) * 4);
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 0;
+    width: 100%;
     z-index: 2;
-    text-align: center;
+    // padding: $base;
+    // text-align: center;
   }
 
   /* figure.fullscreen figcaption.title {
@@ -168,38 +213,47 @@
 
   figcaption.controls {
     position: absolute;
-    left: calc(var(--rythm) / -2);
-    bottom: calc(var(--rythm) * 4);
-    width: calc(100% + (var(--rythm) / 2));
+    left: $base;
+    bottom: 0;
+    // padding: 0 $base;
+    width: calc(100% - ($base * 2));
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-  }
 
-  @media (max-width: 900px) {
-    figcaption.controls {
-      bottom: calc(var(--rythm) * 1.5);
+    @media (max-width: $mobile) {
+      left: 0;
+      bottom: $mobile_base;
+      width: 100%;
     }
   }
 
-  figcaption.controls > span > span {
-    display: inline-block;
-    max-width: 58pt;
-    text-align: right;
-  }
+    button,
+    div {
+      flex: 1;
+      text-align: left;
+      color: $white;
 
-  figure.fullscreen figcaption.controls {
-    left: 0;
-    padding: 0 var(--gutter);
-  }
+      @media (min-width: $mobile) {
+        background-color: transparent;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        padding: $base 0;
+      }
 
-  figure.fullscreen figcaption.seeker {
-    padding: 0 var(--gutter);
-  }
+      @media (max-width: $mobile) {
+        &:not(:first-child) { display: none; }
+        
+        flex: none;
+        margin-left: auto;
+        margin-right: $mobile_base;;
+        padding: ($base * 0.33) ($base * $scale);
+      }
+    }
 
-    button {
-      padding: calc(var(--rythm) / 2);
-      font-size: var(--tiny);
+    div {
+      flex: 2;
+      text-align: right;
     }
 
     button.faded {
@@ -207,149 +261,67 @@
     }
 
     label[for="time"] {
-      position: absolute;
-      bottom: 36px;
-      font-size: var(--tiny);
-      transform: translateX(-50%);
+      // position: absolute;
+      // bottom: $gap * 3;
+      // font-size: var(--tiny);
+      // transform: translateX(-50%);
     }
 
     figure.fullscreen input[type="range"] {
-      bottom: 30px;
+      // bottom: 30px;
     }
 
     input[type="range"] {
       position: absolute;
-      bottom: 12px;
+      bottom: $gap * 2.5;
       left: 0;
       width: 100%;
       margin: 0;
 
-      cursor: col-resize;
+      // cursor: col-resize;
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
+      height: 2px;
+      background-color: $white;
+
+      @media (max-width: $mobile) {
+        display: none;
+      }
     }
 
-    figure.fullscreen input[type="range"] {
-      bottom: 6px;
-    }
+    // figure.fullscreen input[type="range"] {
+    //   bottom: 6px;
+    // }
 
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
 
-      width: 3px;
-      height: 16px;
-      background: white;      
+      width: $base * 0.5;
+      height: $base * 0.5;
+      background: $white;
+      border-radius: 50%;
     }
 
     input[type="range"]::-moz-range-thumb {
       -moz-appearance: none;
 
-      width: 3px;
-      height: 16px;
-      background: white;      
+      width: $base * 0.5;
+      height: $base * 0.5;
+      background: $white;
+      border-radius: 50%; 
     }
 
-    .buffer {
-      position: absolute;
-      bottom: 0;
+    // .buffer {
+    //   position: absolute;
+    //   bottom: 0;
 
-      display: block;
-      height: 12px;
-      background: white;
-    }
+    //   display: block;
+    //   height: 12px;
+    //   background: white;
+    // }
 
-    figure.fullscreen .buffer {
-      bottom: -6px;
-    }
-
-    @media (max-width: 900px) {
-      label[for="time"] {
-        bottom: 20px;
-      }
-
-      figure.fullscreen input[type="range"] {
-        bottom: 15px;
-      }
-
-      input[type="range"] {
-        bottom: 9px;
-      }
-
-      figure.fullscreen input[type="range"] {
-        bottom: 3px;
-      }
-
-      input[type="range"]::-webkit-slider-thumb {
-        width: 2px;
-        height: 7px;  
-      }
-
-      input[type="range"]::-moz-range-thumb {
-        width: 2px;
-        height: 7px;  
-      }
-
-      .buffer {
-        height: 9px;
-      }
-
-      figure.fullscreen .buffer {
-        bottom: -3px;
-      }
-    }
+    // figure.fullscreen .buffer {
+    //   bottom: -6px;
+    // }
 </style>
-
-<svelte:window on:keydown={keydown} />
-
-<figure class:inactive class:fullscreen on:mousemove={activate} bind:this={element}>
-  <figcaption class="breadcrumbs">
-    <h6><a href="{$page.data.locale === 'fr' ? '' : `/${$page.data.locale}`}/projets{$page.url.searchParams.has("director") ? `?director=${$page.url.searchParams.get("director")}` : ''}" rel=prefetch>{$page.data.locale === 'fr' ? 'Retour aux projets' : 'Back to Projects'}</a></h6>
-  </figcaption>
-  <figcaption class="title"><slot name="title" /></figcaption>
-
-  <video src={srcs ? srcs[resolution].fields?.file?.url?.replace('//videos.ctfassets.net', '//telescopefilms.b-cdn.net') : undefined} autoplay disableRemotePlayback
-    bind:currentTime={time}
-    bind:duration
-    bind:buffered
-    bind:paused
-    bind:volume
-    on:play={activate}
-    on:click={togglePaused} />
-  
-  <figcaption class="controls">
-    <button on:click={togglePaused}>{#if paused}➞{:else}❚{/if}</button>
-    <span>
-      <span on:mouseenter={() => showResolutions = true} on:mouseleave={() => showResolutions = false}>
-        {#if showResolutions}
-        {#each srcs as src, index}
-        <button class:faded={resolution !== index} on:click={() => selectResolution(index)}>{src.fields.description}</button>   
-        {/each}
-        {:else}
-        <button>{srcs[resolution].fields.description}</button>  
-        {/if}
-      </span>
-      <button on:click={requestToggleFullscreen}>{#if fullscreen}╻{:else}╹{/if}</button>
-      <button on:click={toggleVolume}>{#if volume}⌑{:else}⊠{/if}</button>
-      <button on:click={scrollPastVideo} style="transform: rotate(90deg)">→</button>
-    </span>
-  </figcaption>
-
-  <figcaption class="seeker">
-    {#if duration}
-    <label for="time" style="left: {time / duration * 100}%">{format(time)} / {format(duration)}</label>
-    <input id="time" name="time" type="range" value={time} min={0} step={0.01} max={duration}
-      on:input={e => seek(e.currentTarget.value)} />
-    {/if}
-
-    {#if buffered}
-    {#each buffered as { start, end }}
-    <div class="buffer" style="left: {start / duration * 100}%; width: {(end - start) / duration * 100}%;" />
-    {/each}
-    {/if}
-  </figcaption>
-</figure>
-
-{#if grabs}
-  <Gallery images={grabs.map(grab => ({ thumbnail: grab.fields.thumbnail }))} on:pick={event => grab(event.detail)} />
-{/if}
