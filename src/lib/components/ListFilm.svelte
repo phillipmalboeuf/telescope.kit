@@ -98,6 +98,7 @@
 
 <style lang="scss">
   a {
+    display: block;
     // &:hover,
     // &:focus {
     //   :global(video) {

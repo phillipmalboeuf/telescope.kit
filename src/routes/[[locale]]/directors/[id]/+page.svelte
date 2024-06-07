@@ -50,7 +50,7 @@
   figure {
     display: block;
     position: relative;
-    z-index: -1;
+    z-index: 0;
   }
 
   aside {
