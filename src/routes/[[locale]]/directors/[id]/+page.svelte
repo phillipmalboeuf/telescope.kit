@@ -31,6 +31,7 @@
 
 <Content content={data.director.fields.featuredFilms?.length ? data.director.fields.featuredFilms : data.portfolio} />
 
+{#key data.director.fields.tagIdentifier}
 <Table
   director={data.director.fields.tagIdentifier}
   labels={{
@@ -45,6 +46,7 @@
     { label: "Année", key: "publishedDate" },
   ]}
 />
+{/key}
 
 <style lang="scss">
   figure {

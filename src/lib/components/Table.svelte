@@ -76,7 +76,7 @@
       <th colspan={columns.length}><hr></th>
     </tr>
 
-    {#each items.filter((_, i) => more || i < moreLimit) as film, i}
+    {#each items.filter((_, i) => more || i < moreLimit) as film, i (film.sys.id)}
     <tr on:click={async (e) => {
       if (e.metaKey) return;
 
